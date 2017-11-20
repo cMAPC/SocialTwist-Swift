@@ -1,0 +1,6 @@
+framework module Pods_SocialTwist {
+  umbrella header "Pods-SocialTwist-umbrella.h"
+
+  export *
+  module * { export * }
+}
