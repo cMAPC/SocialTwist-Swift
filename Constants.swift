@@ -11,5 +11,6 @@ import Foundation
 struct Constants {
     
     static let BaseURL = "http://35.187.121.251/"
+    static let TestURL = "http://dog.ceo/"
 }
 

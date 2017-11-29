@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import Alamofire
 class LoginViewController: UIViewController {
     
     @IBOutlet weak var signInButton: UIButton!

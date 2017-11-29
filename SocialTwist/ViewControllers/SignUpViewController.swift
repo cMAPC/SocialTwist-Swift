@@ -87,6 +87,7 @@ class SignUpViewController: UIViewController {
     }
     
     // MARK: - DatePicker
+    
     func datePicker() -> UIDatePicker {
         let datePicker = UIDatePicker()
         datePicker.datePickerMode = .date

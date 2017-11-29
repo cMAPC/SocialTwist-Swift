@@ -8,7 +8,7 @@
 
 import Foundation
 import Alamofire
-import SwiftyJSON
+import CoreLocation
 
 class RequestManager {
     
@@ -51,9 +51,9 @@ class RequestManager {
                             Description : \(String(describing: errorDescription)))
                             """)
                         
-                        let jsonData = JSON (data)
-                        let errorString = jsonData.dictionary?.first?.value.rawString()
-                        fail (errorString?.letters ?? "Unknown error")
+//                        let jsonData = JSON (data)
+//                        let errorString = jsonData.dictionary?.first?.value.rawString()
+//                        fail (errorString?.letters ?? "Unknown error")
                     }
                     
                     return
@@ -127,9 +127,9 @@ class RequestManager {
                             Description : \(String(describing: errorDescription)))
                             """)
                         
-                        let jsonData = JSON (data)
-                        let errorString = jsonData.dictionary?.first?.value.rawString()
-                        fail (errorString?.letters ?? "Unknown error")
+//                        let jsonData = JSON (data)
+//                        let errorString = jsonData.dictionary?.first?.value.rawString()
+//                        fail (errorString?.letters ?? "Unknown error")
                     }
                     
                     return
@@ -138,67 +138,118 @@ class RequestManager {
                 if let response = response.result.value {
                     completition (response)
                 }
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    static func getEvents(coordinates: CLLocationCoordinate2D,
+                   radius: Int,
+                   categories: [String],
+                   offset: Int,
+                   count: Int,
+                   completion: @escaping completition,
+                   fail: @escaping fail)  {
+        
+        let parameters = [
+            "lat"           : String(coordinates.latitude),
+            "lon"           : String(coordinates.longitude),
+            "radius"        : String(radius),
+            "categories"    : categories,
+            "offset"        : offset,
+            "limit"         : count
+            ] as [String : Any]
+        
+        let headers: HTTPHeaders = [
+            "Accept"        : "application/json",
+            "Authorization" : "dwa"
+        ]
+        
+        let url = Constants.BaseURL + "events/"
+        
+        Alamofire.request(url, method: .get, parameters: parameters, encoding: JSONEncoding.default, headers: headers)
+            .validate(statusCode: 200 ..< 300)
+            .responseJSON { response in
                 
-                
-                
-                
-                
-                /*
-                switch response.result {
-                    
-                case .success:
-                    completition (response)
-                    
-                case .failure (let error):
-                    print("Error \(error.localizedDescription)")
+                guard response.result.isSuccess else {
+                    print("API [events/] error")
                     
                     if let data = response.data {
-                        let json = String (data: data, encoding: String.Encoding.utf8)
-                        print("ERROR \(json!)")
                         
+                        let statusCode = response.error?.localizedDescription
+                        let errorDescription = String(data: data, encoding: .utf8)
                         
+                        print("""
+                            Status code : \(String(describing: statusCode))
+                            Description : \(String(describing: errorDescription)))
+                            """)
                         
-//                        if let data = json(using: .utf8) {
-//                            do {
-//                                let dictionary = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
-//                                print(dictionary?.values.first as! String)
-//                            } catch {
-//                                print(error.localizedDescription)
-//                            }
-
-//                        var dictionary = [String: Any]()
-                        let jsonData = JSON (data)
-                        let dictonary = jsonData.dictionary!
-                        let errorString = jsonData.dictionary?.first?.value.rawString()
-//                        let errorString = dictonary.values.first?.description
-                        
-                        
-                        print("Error string \(errorString?.letters)")
-//                        for (key,subJson):(String, JSON) in jsonData {
-//                            let errorString = subJson.debugDescription.f
-//                        }
-                        
-//                        print("This is sparta \(dictonary.values.first!)")
-                        fail (errorString?.letters)
-                        
-//                        let dict = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
-//
-//                        print(dict??.values.first)
-//
-//
-//                        do {
-//                            let dictionary = try JSONSerialization.jsonObject(with: data, options: []) as! [String : Any]
-//                            print(dictionary.values.first!)
-//                        } catch {
-//                            print(error.localizedDescription)
-//                        }
-                        
-                        
+//                        let jsonData = JSON (data)
+//                        let errorString = jsonData.dictionary?.first?.value.rawString()
+//                        fail (errorString?.letters ?? "Unknown error")
                     }
                     
+                    return
                 }
-                 */
+                
+                if let response = response.result.value {
+                    print(response)
+                    completion (response)
+                }
+        }
+        
+    }
+    
+    
+    
+    
+    
+    static func getDogsImages(completion: @escaping completition, fail: @escaping fail) {
+        
+        let url = Constants.TestURL + "api/breed/african/images"
+        
+        Alamofire.request(url, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil)
+            .validate(statusCode: 200 ..< 300)
+            .responseJSON { response in
+                
+                guard response.result.isSuccess else {
+                    print("API [oauth/register/] error")
+                    
+                    if let data = response.data {
+                        
+                        let statusCode = response.error?.localizedDescription
+                        let errorDescription = String(data: data, encoding: .utf8)
+                        
+                        print("""
+                            Status code : \(String(describing: statusCode))
+                            Description : \(String(describing: errorDescription)))
+                            """)
+                        
+//                        let jsonData = JSON (data)
+//                        let errorString = jsonData.dictionary?.first?.value.rawString()
+//                        fail (errorString?.letters ?? "Unknown error")
+                    }
+                    
+                    return
+                }
+
+                    do {
+                        let dogs = try JSONDecoder().decode(Dog.self, from: response.data!)
+                        completion(dogs.imageUrls)
+                        
+                    } catch {
+                        print(error)
+                    }
         }
     }
     
 }
+

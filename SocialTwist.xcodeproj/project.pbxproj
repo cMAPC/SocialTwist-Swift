@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		1F0BB63E1FBDBD7000FFB6BA /* UIColor+TwistPalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0BB63D1FBDBD7000FFB6BA /* UIColor+TwistPalette.swift */; };
 		1F2824DB1F9A032D003A94DE /* UITextField+Warning.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2824DA1F9A032D003A94DE /* UITextField+Warning.swift */; };
+		1F2BC0991FC593D000810348 /* TimelineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2BC0981FC593D000810348 /* TimelineViewController.swift */; };
+		1F2BC09B1FC5A22600810348 /* EventEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2BC09A1FC5A22600810348 /* EventEntity.swift */; };
+		1F2BC09D1FC5BBFC00810348 /* EventCellNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2BC09C1FC5BBFC00810348 /* EventCellNode.swift */; };
+		1F2BC09F1FC5C5E500810348 /* Animals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2BC09E1FC5C5E500810348 /* Animals.swift */; };
 		1F45C52E1FBD9E04004AD0DE /* SMCheckboxAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F45C52A1FBD9E04004AD0DE /* SMCheckboxAnimationController.swift */; };
 		1F45C52F1FBD9E04004AD0DE /* SMCheckbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F45C52B1FBD9E04004AD0DE /* SMCheckbox.swift */; };
 		1F45C5301FBD9E04004AD0DE /* SMGroupCheckboxController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F45C52C1FBD9E04004AD0DE /* SMGroupCheckboxController.swift */; };
@@ -25,6 +29,7 @@
 		1F7D50A81F949DAC006209C4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1F7D50A71F949DAC006209C4 /* Assets.xcassets */; };
 		1F7D50AB1F949DAC006209C4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F7D50A91F949DAC006209C4 /* LaunchScreen.storyboard */; };
 		1F7D50B41F949DFA006209C4 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7D50B31F949DFA006209C4 /* LoginViewController.swift */; };
+		1FC2D97A1FC2DFED00ACED38 /* UserDefaults+Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC2D9791FC2DFED00ACED38 /* UserDefaults+Keys.swift */; };
 		D986CA4419A31A734FAF2B12 /* Pods_SocialTwist.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 74A5B54C942561DBFA62BD1A /* Pods_SocialTwist.framework */; };
 /* End PBXBuildFile section */
 
@@ -32,6 +37,10 @@
 		1295112271017C6A8636613A /* Pods-SocialTwist.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SocialTwist.release.xcconfig"; path = "Pods/Target Support Files/Pods-SocialTwist/Pods-SocialTwist.release.xcconfig"; sourceTree = "<group>"; };
 		1F0BB63D1FBDBD7000FFB6BA /* UIColor+TwistPalette.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+TwistPalette.swift"; sourceTree = "<group>"; };
 		1F2824DA1F9A032D003A94DE /* UITextField+Warning.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Warning.swift"; sourceTree = "<group>"; };
+		1F2BC0981FC593D000810348 /* TimelineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineViewController.swift; sourceTree = "<group>"; };
+		1F2BC09A1FC5A22600810348 /* EventEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventEntity.swift; sourceTree = "<group>"; };
+		1F2BC09C1FC5BBFC00810348 /* EventCellNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCellNode.swift; sourceTree = "<group>"; };
+		1F2BC09E1FC5C5E500810348 /* Animals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Animals.swift; sourceTree = "<group>"; };
 		1F45C52A1FBD9E04004AD0DE /* SMCheckboxAnimationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMCheckboxAnimationController.swift; sourceTree = "<group>"; };
 		1F45C52B1FBD9E04004AD0DE /* SMCheckbox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMCheckbox.swift; sourceTree = "<group>"; };
 		1F45C52C1FBD9E04004AD0DE /* SMGroupCheckboxController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMGroupCheckboxController.swift; sourceTree = "<group>"; };
@@ -51,6 +60,7 @@
 		1F7D50AA1F949DAC006209C4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1F7D50AC1F949DAC006209C4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1F7D50B31F949DFA006209C4 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		1FC2D9791FC2DFED00ACED38 /* UserDefaults+Keys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Keys.swift"; sourceTree = "<group>"; };
 		74A5B54C942561DBFA62BD1A /* Pods_SocialTwist.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SocialTwist.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B1BCE5018AE469A9B79985A6 /* Pods-SocialTwist.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SocialTwist.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SocialTwist/Pods-SocialTwist.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -73,6 +83,7 @@
 				1F2824DA1F9A032D003A94DE /* UITextField+Warning.swift */,
 				1F0BB63D1FBDBD7000FFB6BA /* UIColor+TwistPalette.swift */,
 				1F56D0CE1F9E3D4600E9B1F6 /* String+Regex.swift */,
+				1FC2D9791FC2DFED00ACED38 /* UserDefaults+Keys.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -144,6 +155,8 @@
 		1F6F380C1F96264000380706 /* ServerEntities */ = {
 			isa = PBXGroup;
 			children = (
+				1F2BC09A1FC5A22600810348 /* EventEntity.swift */,
+				1F2BC09E1FC5C5E500810348 /* Animals.swift */,
 			);
 			path = ServerEntities;
 			sourceTree = "<group>";
@@ -188,6 +201,8 @@
 			children = (
 				1F7D50B31F949DFA006209C4 /* LoginViewController.swift */,
 				1F6F38031F96101B00380706 /* SignUpViewController.swift */,
+				1F2BC0981FC593D000810348 /* TimelineViewController.swift */,
+				1F2BC09C1FC5BBFC00810348 /* EventCellNode.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -300,18 +315,24 @@
 		};
 		7D747DA36CC5A27E650CCBB4 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
+			buildActionMask = 12;
 			files = (
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-SocialTwist/Pods-SocialTwist-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
-				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
+				"${BUILT_PRODUCTS_DIR}/PINCache/PINCache.framework",
+				"${BUILT_PRODUCTS_DIR}/PINOperation/PINOperation.framework",
+				"${BUILT_PRODUCTS_DIR}/PINRemoteImage/PINRemoteImage.framework",
+				"${BUILT_PRODUCTS_DIR}/Texture/AsyncDisplayKit.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PINCache.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PINOperation.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PINRemoteImage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AsyncDisplayKit.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -340,9 +361,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1FC2D97A1FC2DFED00ACED38 /* UserDefaults+Keys.swift in Sources */,
+				1F2BC09B1FC5A22600810348 /* EventEntity.swift in Sources */,
 				1F56D0CA1F9DE2DD00E9B1F6 /* AlertManager.swift in Sources */,
 				1F45C5301FBD9E04004AD0DE /* SMGroupCheckboxController.swift in Sources */,
 				1F6F380E1F96268B00380706 /* RequestManager.swift in Sources */,
+				1F2BC09F1FC5C5E500810348 /* Animals.swift in Sources */,
 				1F45C52F1FBD9E04004AD0DE /* SMCheckbox.swift in Sources */,
 				1F56D0CF1F9E3D4600E9B1F6 /* String+Regex.swift in Sources */,
 				1F6F38041F96101B00380706 /* SignUpViewController.swift in Sources */,
@@ -350,9 +374,11 @@
 				1F6F380A1F9610E200380706 /* NavigationController.swift in Sources */,
 				1F45C5311FBD9E04004AD0DE /* SMCheckboxPathController.swift in Sources */,
 				1F7D50B41F949DFA006209C4 /* LoginViewController.swift in Sources */,
+				1F2BC0991FC593D000810348 /* TimelineViewController.swift in Sources */,
 				1F0BB63E1FBDBD7000FFB6BA /* UIColor+TwistPalette.swift in Sources */,
 				1F7D50A11F949DAC006209C4 /* AppDelegate.swift in Sources */,
 				1F45C52E1FBD9E04004AD0DE /* SMCheckboxAnimationController.swift in Sources */,
+				1F2BC09D1FC5BBFC00810348 /* EventCellNode.swift in Sources */,
 				1F56D0CD1F9E36E600E9B1F6 /* DateManager.swift in Sources */,
 				1F6F38111F96291100380706 /* Constants.swift in Sources */,
 			);
@@ -493,7 +519,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = G22JH73MD2;
+				DEVELOPMENT_TEAM = J75N2N7642;
 				INFOPLIST_FILE = SocialTwist/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mspinum.SocialTwist;
@@ -509,7 +535,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = G22JH73MD2;
+				DEVELOPMENT_TEAM = J75N2N7642;
 				INFOPLIST_FILE = SocialTwist/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mspinum.SocialTwist;

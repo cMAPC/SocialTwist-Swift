@@ -12,8 +12,6 @@ import UIKit
 // MARK: - Protocols
 //-----------------------------
 
-
-
 protocol SMChecboxDelegate {
     
     func didChangeState(checkbox: SMCheckbox) -> Void
