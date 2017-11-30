@@ -13,6 +13,7 @@
 		1F2BC09B1FC5A22600810348 /* EventEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2BC09A1FC5A22600810348 /* EventEntity.swift */; };
 		1F2BC09D1FC5BBFC00810348 /* EventCellNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2BC09C1FC5BBFC00810348 /* EventCellNode.swift */; };
 		1F2BC09F1FC5C5E500810348 /* Animals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2BC09E1FC5C5E500810348 /* Animals.swift */; };
+		1F4515711FCED3F5006833D7 /* PostCellNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F4515701FCED3F5006833D7 /* PostCellNode.swift */; };
 		1F45C52E1FBD9E04004AD0DE /* SMCheckboxAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F45C52A1FBD9E04004AD0DE /* SMCheckboxAnimationController.swift */; };
 		1F45C52F1FBD9E04004AD0DE /* SMCheckbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F45C52B1FBD9E04004AD0DE /* SMCheckbox.swift */; };
 		1F45C5301FBD9E04004AD0DE /* SMGroupCheckboxController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F45C52C1FBD9E04004AD0DE /* SMGroupCheckboxController.swift */; };
@@ -41,6 +42,7 @@
 		1F2BC09A1FC5A22600810348 /* EventEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventEntity.swift; sourceTree = "<group>"; };
 		1F2BC09C1FC5BBFC00810348 /* EventCellNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCellNode.swift; sourceTree = "<group>"; };
 		1F2BC09E1FC5C5E500810348 /* Animals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Animals.swift; sourceTree = "<group>"; };
+		1F4515701FCED3F5006833D7 /* PostCellNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCellNode.swift; sourceTree = "<group>"; };
 		1F45C52A1FBD9E04004AD0DE /* SMCheckboxAnimationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMCheckboxAnimationController.swift; sourceTree = "<group>"; };
 		1F45C52B1FBD9E04004AD0DE /* SMCheckbox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMCheckbox.swift; sourceTree = "<group>"; };
 		1F45C52C1FBD9E04004AD0DE /* SMGroupCheckboxController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMGroupCheckboxController.swift; sourceTree = "<group>"; };
@@ -203,6 +205,7 @@
 				1F6F38031F96101B00380706 /* SignUpViewController.swift */,
 				1F2BC0981FC593D000810348 /* TimelineViewController.swift */,
 				1F2BC09C1FC5BBFC00810348 /* EventCellNode.swift */,
+				1F4515701FCED3F5006833D7 /* PostCellNode.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -381,6 +384,7 @@
 				1F2BC09D1FC5BBFC00810348 /* EventCellNode.swift in Sources */,
 				1F56D0CD1F9E36E600E9B1F6 /* DateManager.swift in Sources */,
 				1F6F38111F96291100380706 /* Constants.swift in Sources */,
+				1F4515711FCED3F5006833D7 /* PostCellNode.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

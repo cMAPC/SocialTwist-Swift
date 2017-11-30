@@ -73,6 +73,7 @@ class EventCellNode: ASCellNode {
         commentButtonNode = ASButtonNode()
         
         super.init()
+        self.selectionStyle = .none
         setupNodes()
         buildNodeHierarchy()
     }
@@ -260,70 +261,6 @@ class EventCellNode: ASCellNode {
         
         return verticalStack
     }
-    
-    /*
-    override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
-        
-        // Creator image node
-        let creatorImageInsets = UIEdgeInsets(top: 15.0, left: 15.0, bottom: 15.0, right: 10.0)
-        let creatorImageLayout = ASInsetLayoutSpec(insets: creatorImageInsets, child: creatorImageNode)
-        
-        // Creator name node
-        let creatorNameInsets = UIEdgeInsets(top: 0.0, left: 0.0, bottom: 0.0, right: 10.0)
-        let creatorNameLayout = ASInsetLayoutSpec(insets: creatorNameInsets, child: creatorNameNode)
-        creatorNameLayout.style.flexShrink = 0.5
-        
-        // Header stack
-        let headerStackLayout = ASStackLayoutSpec(direction: .horizontal,
-                                                  spacing: 0,
-                                                  justifyContent: .start,
-                                                  alignItems: .center,
-                                                  children: [creatorImageLayout, creatorNameLayout])
-        
-        // Delimiters nodes
-        let topDelimiterLayout = ASWrapperLayoutSpec(layoutElement: topDelimiterNode)
-        let bottomDelimiterLayout = ASWrapperLayoutSpec(layoutElement: bottomDelimiterNode)
-        
-        // Footer stack
-        let footerStackLayout = ASStackLayoutSpec(direction: .horizontal,
-                                                  spacing: 0,
-                                                  justifyContent: .spaceBetween,
-                                                  alignItems: .center,
-                                                  children: [likeButtonNode, commentButtonNode, dislikeButtonNode])
-        
-        
-        // Event description node
-        let eventDescriptionInsets = UIEdgeInsets(top: 10.0, left: 10.0, bottom: 10.0, right: 10.0)
-        let eventDescriptionLayout = ASInsetLayoutSpec(insets: eventDescriptionInsets, child: eventDescriptionNode)
-        
-        // Event image node
-        let eventImageLayout: ASLayoutSpec
-        if event.imageURL.isEmpty {
-            eventImageLayout = ASWrapperLayoutSpec(layoutElement: eventImageNode)
-        } else {
-            eventImageLayout = ASRatioLayoutSpec(ratio: 1.0, child: eventImageNode)
-        }
-        
-        // Spacing node
-        let spacingNodeLayout = ASWrapperLayoutSpec(layoutElement: spacingNode)
-        
-        // Vertical children
-        let verticalChildren = [headerStackLayout, topDelimiterLayout, eventDescriptionLayout,
-                                eventImageLayout, bottomDelimiterLayout, footerStackLayout, spacingNodeLayout]
-        
-        let verticalStack = ASStackLayoutSpec.vertical()
-        verticalStack.children = verticalChildren
-        
-        /*
-        let verticalStack = ASStackLayoutSpec(direction: .vertical,
-                                              spacing: 0,
-                                              justifyContent: .start,
-                                              alignItems: .stretch,
-                                              children: verticalChildren)
-        */
-
-        return verticalStack
-    }*/
     
     //-----------------------------
     // MARK: - Action's

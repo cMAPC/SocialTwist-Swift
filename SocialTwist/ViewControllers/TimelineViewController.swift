@@ -19,14 +19,7 @@ class TimelineViewController: UIViewController {
     let locationManager = CLLocationManager()
     var imagesUrls = [String]()
     
-//    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-//        tableNode = ASTableNode()
-//        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-//    }
-//
-//    required init?(coder aDecoder: NSCoder) {
-//        super.init(coder: aDecoder)
-//    }
+    var imagePicker: UIImagePickerController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,7 +27,12 @@ class TimelineViewController: UIViewController {
         
         tableNode = ASTableNode(style: .plain)
         view.addSubnode(tableNode!)
+
         wireDelegation()
+        
+        imagePicker = UIImagePickerController()
+        imagePicker.sourceType = .photoLibrary
+        imagePicker.delegate = self
     }
     
     override func viewWillLayoutSubviews() {
@@ -110,7 +108,9 @@ class TimelineViewController: UIViewController {
 }
 
 
+//-----------------------------------------
 // MARK: - UITableViewDataSource
+//-----------------------------------------
 
 extension TimelineViewController: ASTableDataSource {
     func tableNode(_ tableNode: ASTableNode, numberOfRowsInSection section: Int) -> Int {
@@ -118,11 +118,20 @@ extension TimelineViewController: ASTableDataSource {
     }
     
     func tableNode(_ tableNode: ASTableNode, nodeBlockForRowAt indexPath: IndexPath) -> ASCellNodeBlock {
-        let event = events[indexPath.row]
         
-        return {
-            let node = EventCellNode(event: event)
-            return node
+        if indexPath.row == 0 {
+            let event = events[indexPath.row]
+            return {
+                let postNode = PostCellNode(event: event)
+                postNode.delegate = self
+                return postNode
+            }
+        } else {
+            let event = events[indexPath.row]
+            return {
+                let node = EventCellNode(event: event)
+                return node
+            }
         }
     }
     
@@ -133,7 +142,63 @@ extension TimelineViewController: ASTableDataSource {
     }
 }
 
+//-----------------------------------------
+// MARK: - PostCellDelegate
+//-----------------------------------------
 
+extension TimelineViewController: PostCellDelegate {
+    func didTapPhotoButton(sender: ASButtonNode) {
+        present(imagePicker, animated: true, completion: nil)
+    }
+}
+
+//-----------------------------------------
+// MARK: - UIImagePickerControllerDelegate
+//-----------------------------------------
+
+extension TimelineViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            let indexPath = IndexPath(row: 0, section: 0)
+            let postCell = tableNode?.nodeForRow(at: indexPath) as! PostCellNode
+            
+            postCell.eventImage = image
+        }
+        dismiss(animated: true, completion: nil)
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//extension TimelineViewController: PostCellDelegate {
+//    func editableTextNodeDidChange(sender: ASEditableTextNode) {
+//        tableNode?.performBatchUpdates({
+//
+////            print("Frame befor: \(sender.frame)")
+////
+////            var frame = sender.frame
+////            frame.size.height += 10
+////            sender.frame = frame
+//
+//            print("Frame after: \(sender.frame)")
+//
+//        }, completion: { (result) in
+//
+//        })
+//    }
+//}
 
 
 /*
