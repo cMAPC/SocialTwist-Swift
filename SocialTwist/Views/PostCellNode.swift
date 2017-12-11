@@ -31,24 +31,20 @@ class PostCellNode: ASCellNode {
         return CGSize(width: 52.0, height: 42.0)
     }()
     
-    var eventImage: UIImage? { ///?????????????
-        didSet {
-            setupEventImageNode()
-            setNeedsLayout()
-        }
+    private var placeholderAttributes: [NSAttributedStringKey: Any] {
+        return [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 15.0),
+                .foregroundColor: UIColor.TwistPalette.DarkGray]
     }
-    
     
     //-----------------------------
     // MARK: - Constants
     //-----------------------------
     
-    weak var delegate: PostCellDelegate? // ??????????????????????
-    
     private let event: Event // ???????????????????????
+    weak var delegate: PostCellDelegate?
     
     private let userImageNode: ASNetworkImageNode
-    private let evenImageNode: ASImageNode
+    let eventImageNode: ImageNode
     private let inputTextNode: ASEditableTextNode
     private let bottomDelimiterNode: ASDisplayNode
     private let categoryButtonNode: ASButtonNode
@@ -65,7 +61,7 @@ class PostCellNode: ASCellNode {
         self.event = event // ???????????????????
         
         userImageNode = ASNetworkImageNode()
-        evenImageNode = ASImageNode()
+        eventImageNode = ImageNode()
         inputTextNode = ASEditableTextNode()
         bottomDelimiterNode = ASDisplayNode()
         categoryButtonNode = ASButtonNode()
@@ -75,6 +71,7 @@ class PostCellNode: ASCellNode {
         spacerNode = ASDisplayNode()
         
         super.init()
+        selectionStyle = .none
         setupNodes()
         buildNodeHierarchy()
     }
@@ -85,6 +82,7 @@ class PostCellNode: ASCellNode {
         photoButtonNode.addTarget(self, action: #selector(didTapPhotoButton(_:)), forControlEvents: .touchUpInside)
         categoryButtonNode.addTarget(self, action: #selector(didTapCategoryButton(_:)), forControlEvents: .touchUpInside)
         postButtonNode.addTarget(self, action: #selector(didTapPostButton(_:)), forControlEvents: .touchUpInside)
+        eventImageNode.deleteButton.addTarget(self, action: #selector(didTapDeleteButton(_:)), forControlEvents: .touchUpInside)
     }
     
     //-----------------------------
@@ -93,7 +91,6 @@ class PostCellNode: ASCellNode {
     
     private func setupNodes() {
         setupUserImageNode()
-        setupEventImageNode()
         setupInputTextNode()
         setupBottomDelimiterNode()
         setupCategoryButtonNode()
@@ -109,20 +106,9 @@ class PostCellNode: ASCellNode {
         userImageNode.cornerRadius = 25.0
     }
     
-    private func setupEventImageNode() {
-        /*if let image = eventImage  {
-            evenImageNode.style.preferredSize = userImageSize
-            evenImageNode.image = image
-        } else {
-            evenImageNode.style.preferredSize = CGSize.zero
-        }*/
-        evenImageNode.style.preferredSize = userImageSize
-        evenImageNode.image = #imageLiteral(resourceName: "uncharted")
-    }
-    
     private func setupInputTextNode() {
-        inputTextNode.attributedPlaceholderText = NSAttributedString(string: "What's new ?")
-        inputTextNode.backgroundColor = UIColor.red
+        inputTextNode.attributedPlaceholderText = NSAttributedString(string: "What's new ?", attributes: placeholderAttributes)
+        inputTextNode.maximumLinesToDisplay = 10
     }
     
     private func setupBottomDelimiterNode() {
@@ -141,9 +127,11 @@ class PostCellNode: ASCellNode {
     }
     
     private func setupPostButtonNode() {
-        postButtonNode.setTitle("POST", with: UIFont.boldSystemFont(ofSize: 13.0), with: UIColor.TwistPalette.DarkGray, for: .normal)
+        postButtonNode.setTitle("POST",
+                                with: UIFont.boldSystemFont(ofSize: 13.0),
+                                with: UIColor.TwistPalette.DarkGray,
+                                for: .normal)
         postButtonNode.style.preferredSize = buttonSize
-        postButtonNode.backgroundColor = UIColor.red
     }
     
     private func setupBottomSpacerNode() {
@@ -157,7 +145,7 @@ class PostCellNode: ASCellNode {
     
     private func buildNodeHierarchy() {
         addSubnode(userImageNode)
-        addSubnode(evenImageNode)
+        addSubnode(eventImageNode)
         addSubnode(inputTextNode)
         addSubnode(bottomDelimiterNode)
         addSubnode(categoryButtonNode)
@@ -171,16 +159,12 @@ class PostCellNode: ASCellNode {
     //-----------------------------
     
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
-//        let inputTextNodeInsets = UIEdgeInsets(top: 10.0, left: 10.0, bottom: 10.0, right: 10.0)
-//        let inputTextNodeLayout = ASInsetLayoutSpec(insets: inputTextNodeInsets, child: inputTextNode)
-//        inputTextNodeLayout.style.preferredSize = CGSize(width: ASDimensionAuto.value, height: inputTextNode.frame.size.height)
-        
         // User image node
-        let userImageInsets = UIEdgeInsets(top: 15.0, left: 15.0, bottom: 15.0, right: 10.0)
+        let userImageInsets = UIEdgeInsets(top: 10.0, left: 15.0, bottom: 0.0, right: 10.0)
         let userImageLayout = ASInsetLayoutSpec(insets: userImageInsets, child: userImageNode)
         
         // Input node
-        let inputTextNodeInsets = UIEdgeInsets(top: 15.0, left: 0.0, bottom: 15.0, right: 10.0)
+        let inputTextNodeInsets = UIEdgeInsets(top: 10.0, left: 0.0, bottom: 5.0, right: 10.0)
         let inputTextNodeLayout = ASInsetLayoutSpec(insets: inputTextNodeInsets, child: inputTextNode)
         inputTextNodeLayout.style.flexShrink = 1.0
         inputTextNodeLayout.style.alignSelf = .center
@@ -193,14 +177,10 @@ class PostCellNode: ASCellNode {
                                                   children: [userImageLayout, inputTextNodeLayout])
         
         // Image node
-        let eventImageInsets = UIEdgeInsets(top: 0.0, left: 75.0, bottom: 10.0, right: 10.0)
-        let eventImageLayout = ASInsetLayoutSpec(insets: eventImageInsets, child: evenImageNode)
-        
-        let eventImageStackLayout = ASStackLayoutSpec(direction: .horizontal,
-                                                      spacing: 0.0,
-                                                      justifyContent: .start,
-                                                      alignItems: .start,
-                                                      children: [eventImageLayout])
+//        let eventImageLayout = ASWrapperLayoutSpec(layoutElement: eventImageNode)
+        let eventImageInsets = UIEdgeInsets(top: 0.0, left: 65.0, bottom: 8.0, right: 10.0)
+        let eventImageLayout = ASInsetLayoutSpec(insets: eventImageInsets, child: eventImageNode)
+
         // Footer stack
         let postButtonLayout = ASWrapperLayoutSpec(layoutElement: postButtonNode)
         
@@ -212,7 +192,7 @@ class PostCellNode: ASCellNode {
         
         // Vertical stack
         let verticalStackLayout = ASStackLayoutSpec.vertical()
-        verticalStackLayout.children = [headerStackLayout, eventImageStackLayout, bottomDelimiterNode, footerStackLayout, bottomSpacerNode]
+        verticalStackLayout.children = [headerStackLayout, eventImageLayout, bottomDelimiterNode, footerStackLayout, bottomSpacerNode]
         
         return verticalStackLayout
     }
@@ -232,6 +212,22 @@ class PostCellNode: ASCellNode {
     @objc func didTapPostButton(_ sender: ASButtonNode) {
         
     }
+    
+    @objc func didTapDeleteButton(_ sender: ASButtonNode) {
+        eventImageNode.image = nil
+        eventImageNode.deleteButton.isHidden = true
+        setNeedsLayout()
+    }
+    
+    //-----------------------------
+    // MARK: - Text Attributes
+    //-----------------------------
+    
+//    private func placeholderAttriubtes() -> NSAttributedString {
+//        let placeholderAttributes = [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 15.0),
+//                                     .foregroundColor: UIColor.TwistPalette.FlatGray]
+//
+//    }
 }
 
 //------------------------------------
@@ -242,4 +238,73 @@ extension PostCellNode: ASEditableTextNodeDelegate {
     func editableTextNodeDidChangeSelection(_ editableTextNode: ASEditableTextNode, fromSelectedRange: NSRange, toSelectedRange: NSRange, dueToEditing: Bool) {
         self.setNeedsLayout()
     }
+}
+
+//------------------------------------
+// MARK: - Image Node
+//------------------------------------
+
+class ImageNode: ASDisplayNode {
+    private let imageNode: ASImageNode
+    let deleteButton: ASButtonNode
+    
+    var image: UIImage? {
+        didSet {
+            setupNodes()
+            setNeedsLayout()
+        }
+    }
+    
+    //-----------------------------
+    // MARK: - Life cycle
+    //-----------------------------
+    
+    override init() {
+        imageNode = ASImageNode()
+        deleteButton = ASButtonNode()
+        
+        super.init()
+        addSubnode(imageNode)
+        addSubnode(deleteButton)
+    }
+    
+    //-----------------------------
+    // MARK: - Setup
+    //-----------------------------
+    
+    private func setupNodes() {
+        if image != nil {
+            setupImageNode()
+            setupDeleteButtonNode()
+        } else {
+            imageNode.style.preferredSize = CGSize.zero
+            deleteButton.style.preferredSize = CGSize.zero
+        }
+    }
+    
+    private func setupImageNode() {
+        imageNode.style.preferredSize = CGSize(width: 50.0, height: 50.0)
+        imageNode.cornerRadius = 3.0
+        imageNode.image = self.image
+    }
+    
+    private func setupDeleteButtonNode() {
+        deleteButton.setImage(#imageLiteral(resourceName: "delete"), for: .normal)
+        deleteButton.backgroundColor = UIColor.white
+        deleteButton.style.preferredSize = CGSize(width: 20.0, height: 20.0)
+        deleteButton.cornerRadius = 10.0
+        deleteButton.isHidden = false
+    }
+    
+    //-----------------------------
+    // MARK: - Layout
+    //-----------------------------
+    
+    override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
+        deleteButton.style.layoutPosition = CGPoint(x: 50.0, y: 0.0)
+        imageNode.style.layoutPosition = CGPoint(x: 10.0, y: 10.0)
+        
+        return ASAbsoluteLayoutSpec(sizing: .sizeToFit, children: [imageNode, deleteButton])
+    }
+
 }

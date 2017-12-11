@@ -11,7 +11,7 @@ import CoreLocation
 import AsyncDisplayKit
 
 class TimelineViewController: UIViewController {
-
+    
     var tableNode: ASTableNode?
     var events = [Event]()
     
@@ -20,6 +20,13 @@ class TimelineViewController: UIViewController {
     var imagesUrls = [String]()
     
     var imagePicker: UIImagePickerController!
+    
+    
+    
+    
+//    let interactor = InteractorController()
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -109,7 +116,7 @@ class TimelineViewController: UIViewController {
 
 
 //-----------------------------------------
-// MARK: - UITableViewDataSource
+// MARK: - Table View Delegate
 //-----------------------------------------
 
 extension TimelineViewController: ASTableDataSource {
@@ -130,6 +137,7 @@ extension TimelineViewController: ASTableDataSource {
             let event = events[indexPath.row]
             return {
                 let node = EventCellNode(event: event)
+                node.delegate = self
                 return node
             }
         }
@@ -143,7 +151,34 @@ extension TimelineViewController: ASTableDataSource {
 }
 
 //-----------------------------------------
-// MARK: - PostCellDelegate
+// MARK: - Event Cell Delegate
+//-----------------------------------------
+
+extension TimelineViewController: EventCellDelegate {
+    func didTapLikeButton(sender: ASButtonNode) {
+        
+    }
+    
+    func didTapDislikeButton(sender: ASButtonNode) {
+        
+    }
+
+    func didTapCommentButton(sender: ASButtonNode) {        
+        let commentsVC = CommentsViewController(tableStyle: .grouped)
+        commentsVC.transitioningDelegate = self
+        commentsVC.modalPresentationStyle = .overCurrentContext
+//        commentsVC.interactionController = interactor
+        present(commentsVC, animated: true, completion: nil)
+        
+//        let extendetEventVC = ExtendetEventViewController(event: events[1])
+//        present(extendetEventVC, animated: true, completion: nil)
+        
+    }
+}
+
+
+//-----------------------------------------
+// MARK: - Post Cell Delegate
 //-----------------------------------------
 
 extension TimelineViewController: PostCellDelegate {
@@ -153,100 +188,58 @@ extension TimelineViewController: PostCellDelegate {
 }
 
 //-----------------------------------------
-// MARK: - UIImagePickerControllerDelegate
+// MARK: - Image Picker Delegate
 //-----------------------------------------
 
 extension TimelineViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+    @objc func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
             let indexPath = IndexPath(row: 0, section: 0)
             let postCell = tableNode?.nodeForRow(at: indexPath) as! PostCellNode
             
-            postCell.eventImage = image
+            postCell.eventImageNode.image = image
+            
         }
         dismiss(animated: true, completion: nil)
     }
 }
 
+//-----------------------------------------
+// MARK: - Transition Delegate
+//-----------------------------------------
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-//extension TimelineViewController: PostCellDelegate {
-//    func editableTextNodeDidChange(sender: ASEditableTextNode) {
-//        tableNode?.performBatchUpdates({
-//
-////            print("Frame befor: \(sender.frame)")
-////
-////            var frame = sender.frame
-////            frame.size.height += 10
-////            sender.frame = frame
-//
-//            print("Frame after: \(sender.frame)")
-//
-//        }, completion: { (result) in
-//
-//        })
-//    }
-//}
-
-
-/*
-// MARK: - UITableViewDelegate
-
-extension TimelineViewController: ASTableDelegate {
-    func tableNode(_ tableNode: ASTableNode, willBeginBatchFetchWith context: ASBatchContext) {
-        nextPageWithCompletion { (results) in
-            self.insertNewRows(results)
-            context.completeBatchFetching(true)
-        }
+extension TimelineViewController: UIViewControllerTransitioningDelegate {
+    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        
+        return PresentAnimationController()
     }
     
-    func shouldBatchFetch(for tableNode: ASTableNode) -> Bool {
-        return true
+    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        guard let viewController = dismissed as? CommentsViewController else {
+            return nil
+        }
+//        return DismissAnimationController()
+        return DismissAnimationController(interactionController: viewController.interactionController)
+    }
+    
+    func interactionControllerForDismissal(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+        guard let animator = animator as? DismissAnimationController,
+            let interactionController = animator.interactionController,
+            interactionController.interactionInProgress
+            else {
+                return nil
+        }
+        return interactionController
+        
+//        return interactor.interactionInProgress ? interactor : nil
     }
 }
 
-// MARK: - Helpers
 
-extension TimelineViewController {
-    func nextPageWithCompletion(_ block: @escaping (_ results: [Event]) -> ()) {
-//        if let dogsArray = self.dogs {
-//            let moreAnimals = Array(self.dogs[0 ..< 5])
-//            DispatchQueue.main.async {
-//                block(moreAnimals)
-//            }
-//        }
-        
-    }
-    
-    func insertNewRows(_ newAnimals: [Event]) {
-        let section = 0
-        var indexPaths = [IndexPath]()
-        
-        let newTotalNumberOfPhotos = events.count + newAnimals.count
-        
-        for row in events.count ..< newTotalNumberOfPhotos {
-            let path = IndexPath(row: row, section: section)
-            indexPaths.append(path)
-        }
-        
-        events.append(contentsOf: newAnimals)
-//        if let tableNode = node as? ASTableNode {
-        tableNode?.insertRows(at: indexPaths, with: .none)
-//        }
-    }
-}
 
-*/
+
+
+
+
+
 

@@ -365,6 +365,31 @@
             </objects>
             <point key="canvasLocation" x="1774" y="880"/>
         </scene>
+        <!--Comments View Controller-->
+        <scene sceneID="cLY-qn-E9h">
+            <objects>
+                <viewController storyboardIdentifier="CommentsViewControllerID" id="Xrl-mx-jcm" customClass="CommentsViewController" customModule="SocialTwist" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Rq5-PI-QkS">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t9q-Y6-2dF">
+                                <rect key="frame" x="164" y="318" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="tapAction:" destination="Xrl-mx-jcm" eventType="touchUpInside" id="Fgg-M2-HeR"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="0.82885695289928452" blue="0.016669034142351769" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <viewLayoutGuide key="safeArea" id="A49-DD-cCt"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="huB-6I-fSM" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2580" y="877"/>
+        </scene>
     </scenes>
     <resources>
         <image name="back arrow" width="12" height="19"/>
