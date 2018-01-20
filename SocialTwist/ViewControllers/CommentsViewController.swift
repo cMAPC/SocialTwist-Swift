@@ -16,26 +16,13 @@ class CommentsViewController: EventBaseViewController {
     
     private let headerView: CommentsHeaderNode
     var interactionController: InteractorController?
-    
+
     // MARK: - Object life cycle
     
-//    override init() {
-//        headerView = CommentsHeaderNode()
-//        super.init()
-//    }
-    
-    ///////////////////////////////////////////////////
-    
-    
-    
-//    var tableStyle: TableStyle?
-    
-    
-    override init(tableStyle: TableStyle) {
+    init() {
         headerView = CommentsHeaderNode()
-        super.init(tableStyle: tableStyle)
+        super.init(tableStyle: .plain)
     }
-    //////////////////////////////////////////////////
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -45,7 +32,6 @@ class CommentsViewController: EventBaseViewController {
         super.viewDidLoad()
         headerView.delegate = self
         interactionController = InteractorController(viewController: self, tableView: tableNode.view)
-        
     }
 }
 

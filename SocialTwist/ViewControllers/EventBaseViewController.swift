@@ -18,9 +18,7 @@ class EventBaseViewController: ASViewController<ASTableNode> {
     // MARK: - Constants
     
     var tableNode: ASTableNode!
-    
-//    var interactionController: InteractorController? = nil
-//    var interactionController: InteractorController?
+    var stickyInputView: InputAccessoryView?
     
     // MARK: - Object life cycle
 
@@ -30,6 +28,7 @@ class EventBaseViewController: ASViewController<ASTableNode> {
     }
     
     init(tableStyle: TableStyle) {
+        stickyInputView = InputAccessoryView()
         tableStyle == .grouped ? (tableNode = ASTableNode.init(style: .grouped)) : (tableNode = ASTableNode())
         super.init(node: tableNode)
     }
@@ -46,11 +45,19 @@ class EventBaseViewController: ASViewController<ASTableNode> {
         tableNode.dataSource = self
         tableNode.delegate = self
         tableNode.leadingScreensForBatching = 2.5
+        tableNode.view.keyboardDismissMode = .interactive
         
-//        tableNode.view.panGestureRecognizer.addTarget(self, action: #selector(handleGesture(_:)))
-        
-//        interactionController = InteractorController(viewController: self, tableView: tableNode.view)
-        
+        stickyInputView?.delegate = self
+    }
+    
+    // MARK: Accessory View
+    
+    override var inputAccessoryView: UIView? {
+        return stickyInputView
+    }
+    
+    override var canBecomeFirstResponder: Bool {
+        return true
     }
    
     // MARK: - Helpers
@@ -69,54 +76,6 @@ class EventBaseViewController: ASViewController<ASTableNode> {
             print(error)
         }
     }
-    
-    
-    
-    
-//    @objc func handleGesture(_ gestureRecognizer: UIPanGestureRecognizer) {
-//        let percentThreshold: CGFloat = 0.4
-//        
-//        let translation = gestureRecognizer.translation(in: view)
-//        let verticalMovement = translation.y / UIScreen.main.bounds.height
-//        let downwardMovement = fmaxf(Float(verticalMovement), 0.0)
-//        let downwardMovementPercent = fminf(downwardMovement, 1.0)
-//        let progress = CGFloat(downwardMovementPercent)
-//        
-//    
-//        if tableNode.contentOffset.y < 0 {
-//            
-//        
-//        
-//        guard let interactor = interactionController
-//             else { return }
-//    
-//        switch gestureRecognizer.state {
-//            
-//        case .began:
-//            interactor.interactionInProgress = true
-//            dismiss(animated: true, completion: nil)
-//            
-//        case .changed:
-//            interactor.shouldCompleteTransaction = progress > percentThreshold
-//            interactor.update(progress)
-//            
-//        case .cancelled:
-//            interactor.interactionInProgress = false
-//            interactor.cancel()
-//            
-//        case .ended:
-//            interactor.interactionInProgress = false
-//            if interactor.shouldCompleteTransaction {
-//                interactor.finish()
-//            } else {
-//                interactor.cancel()
-//            }
-//            
-//        default:
-//            break
-//        }
-//        }
-//    }
 }
 
 // MARK: - ASTableDataSource, ASTableDelegate
@@ -133,15 +92,21 @@ extension EventBaseViewController: ASTableDataSource, ASTableDelegate {
             return CommentCellNode(comment: comment)
         }
     }
-    
+     
     func shouldBatchFetch(for tableNode: ASTableNode) -> Bool {
         return true
     }
     
     func tableNode(_ tableNode: ASTableNode, willBeginBatchFetchWith context: ASBatchContext) {
         fetchNewBatchWithContext(context)
+    } 
+}
+
+// MARK: - Input Accessory Delegate
+
+extension EventBaseViewController: InputAccessoryDelegate {
+    func didFinishEditing() {
+        
     }
-    
-    
 }
 

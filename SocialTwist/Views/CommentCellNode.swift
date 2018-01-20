@@ -126,6 +126,7 @@ class ContainerNode: ASDisplayNode {
                                        children: [nameNodeLayout, commentNodeLayout, dateNodeLayout])
         
         vStack.style.flexShrink = 1.0
+        vStack.style.flexGrow = 1.0
         
         // Horizontal stack
         let hStack = ASStackLayoutSpec(direction: .horizontal,
@@ -133,7 +134,6 @@ class ContainerNode: ASDisplayNode {
                                        justifyContent: .start,
                                        alignItems: .start,
                                        children: [imageNodeLayout, vStack])
-        
         return hStack
     }
 }

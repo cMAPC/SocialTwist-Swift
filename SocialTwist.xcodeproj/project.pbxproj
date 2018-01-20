@@ -21,6 +21,7 @@
 		1F45C52F1FBD9E04004AD0DE /* SMCheckbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F45C52B1FBD9E04004AD0DE /* SMCheckbox.swift */; };
 		1F45C5301FBD9E04004AD0DE /* SMGroupCheckboxController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F45C52C1FBD9E04004AD0DE /* SMGroupCheckboxController.swift */; };
 		1F45C5311FBD9E04004AD0DE /* SMCheckboxPathController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F45C52D1FBD9E04004AD0DE /* SMCheckboxPathController.swift */; };
+		1F528EA51FDEC68B00EC4FA3 /* EventExtendetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF310081FDB00580004068B /* EventExtendetViewController.swift */; };
 		1F56D0CA1F9DE2DD00E9B1F6 /* AlertManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F56D0C91F9DE2DD00E9B1F6 /* AlertManager.swift */; };
 		1F56D0CD1F9E36E600E9B1F6 /* DateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F56D0CC1F9E36E600E9B1F6 /* DateManager.swift */; };
 		1F56D0CF1F9E3D4600E9B1F6 /* String+Regex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F56D0CE1F9E3D4600E9B1F6 /* String+Regex.swift */; };
@@ -38,9 +39,16 @@
 		1F7D50AB1F949DAC006209C4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F7D50A91F949DAC006209C4 /* LaunchScreen.storyboard */; };
 		1F7D50B41F949DFA006209C4 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7D50B31F949DFA006209C4 /* LoginViewController.swift */; };
 		1FA2A0D51FDB12B50019FDFF /* CommentsHeaderNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA2A0D41FDB12B50019FDFF /* CommentsHeaderNode.swift */; };
+		1FABE2681FF4ECEA00979699 /* FriendsBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FABE2671FF4ECEA00979699 /* FriendsBaseViewController.swift */; };
+		1FABE26A1FF4F20C00979699 /* Friend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FABE2691FF4F20C00979699 /* Friend.swift */; };
+		1FABE26C1FF4F8A800979699 /* FriendCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FABE26B1FF4F8A800979699 /* FriendCell.swift */; };
+		1FABE2701FF4FD1F00979699 /* FriendContainerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FABE26F1FF4FD1F00979699 /* FriendContainerNode.swift */; };
 		1FC2D97A1FC2DFED00ACED38 /* UserDefaults+Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC2D9791FC2DFED00ACED38 /* UserDefaults+Keys.swift */; };
-		1FF310091FDB00580004068B /* ExtendetEventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF310081FDB00580004068B /* ExtendetEventViewController.swift */; };
+		1FEA544D1FE18F970049A1C7 /* InputAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEA544C1FE18F970049A1C7 /* InputAccessoryView.swift */; };
 		1FF3100D1FDB042E0004068B /* CommentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF3100C1FDB042E0004068B /* CommentsViewController.swift */; };
+		1FF711831FF9549F00E2BACE /* FriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF711821FF9549F00E2BACE /* FriendsViewController.swift */; };
+		1FF711851FF954EA00E2BACE /* InviteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF711841FF954EA00E2BACE /* InviteViewController.swift */; };
+		1FF711891FFA847800E2BACE /* InviteHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF711881FFA847800E2BACE /* InviteHeader.swift */; };
 		D986CA4419A31A734FAF2B12 /* Pods_SocialTwist.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 74A5B54C942561DBFA62BD1A /* Pods_SocialTwist.framework */; };
 /* End PBXBuildFile section */
 
@@ -80,9 +88,17 @@
 		1F7D50AC1F949DAC006209C4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1F7D50B31F949DFA006209C4 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		1FA2A0D41FDB12B50019FDFF /* CommentsHeaderNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsHeaderNode.swift; sourceTree = "<group>"; };
+		1FABE2671FF4ECEA00979699 /* FriendsBaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsBaseViewController.swift; sourceTree = "<group>"; };
+		1FABE2691FF4F20C00979699 /* Friend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Friend.swift; sourceTree = "<group>"; };
+		1FABE26B1FF4F8A800979699 /* FriendCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendCell.swift; sourceTree = "<group>"; };
+		1FABE26F1FF4FD1F00979699 /* FriendContainerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendContainerNode.swift; sourceTree = "<group>"; };
 		1FC2D9791FC2DFED00ACED38 /* UserDefaults+Keys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Keys.swift"; sourceTree = "<group>"; };
-		1FF310081FDB00580004068B /* ExtendetEventViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtendetEventViewController.swift; sourceTree = "<group>"; };
+		1FEA544C1FE18F970049A1C7 /* InputAccessoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputAccessoryView.swift; sourceTree = "<group>"; };
+		1FF310081FDB00580004068B /* EventExtendetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventExtendetViewController.swift; sourceTree = "<group>"; };
 		1FF3100C1FDB042E0004068B /* CommentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsViewController.swift; sourceTree = "<group>"; };
+		1FF711821FF9549F00E2BACE /* FriendsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsViewController.swift; sourceTree = "<group>"; };
+		1FF711841FF954EA00E2BACE /* InviteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InviteViewController.swift; sourceTree = "<group>"; };
+		1FF711881FFA847800E2BACE /* InviteHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InviteHeader.swift; sourceTree = "<group>"; };
 		74A5B54C942561DBFA62BD1A /* Pods_SocialTwist.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SocialTwist.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B1BCE5018AE469A9B79985A6 /* Pods-SocialTwist.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SocialTwist.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SocialTwist/Pods-SocialTwist.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -155,6 +171,10 @@
 				1F5B90291FD6EB26004801CF /* PostCellNode.swift */,
 				1FA2A0D41FDB12B50019FDFF /* CommentsHeaderNode.swift */,
 				1F2B2B6C1FDC4A8B00EDB1AE /* ExtendetEventHeaderNode.swift */,
+				1FEA544C1FE18F970049A1C7 /* InputAccessoryView.swift */,
+				1FABE26B1FF4F8A800979699 /* FriendCell.swift */,
+				1FABE26F1FF4FD1F00979699 /* FriendContainerNode.swift */,
+				1FF711881FFA847800E2BACE /* InviteHeader.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -202,6 +222,7 @@
 				1F2BC09A1FC5A22600810348 /* Event.swift */,
 				1F2BC09E1FC5C5E500810348 /* Animals.swift */,
 				1F5B90241FD6AF00004801CF /* Comment.swift */,
+				1FABE2691FF4F20C00979699 /* Friend.swift */,
 			);
 			path = ServerEntities;
 			sourceTree = "<group>";
@@ -250,8 +271,11 @@
 				1F6F38031F96101B00380706 /* SignUpViewController.swift */,
 				1F2BC0981FC593D000810348 /* TimelineViewController.swift */,
 				1F2DA6D11FD590F5004ED390 /* EventBaseViewController.swift */,
-				1FF310081FDB00580004068B /* ExtendetEventViewController.swift */,
+				1FF310081FDB00580004068B /* EventExtendetViewController.swift */,
 				1FF3100C1FDB042E0004068B /* CommentsViewController.swift */,
+				1FABE2671FF4ECEA00979699 /* FriendsBaseViewController.swift */,
+				1FF711821FF9549F00E2BACE /* FriendsViewController.swift */,
+				1FF711841FF954EA00E2BACE /* InviteViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -370,6 +394,7 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-SocialTwist/Pods-SocialTwist-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/AlignedCollectionViewFlowLayout/AlignedCollectionViewFlowLayout.framework",
 				"${BUILT_PRODUCTS_DIR}/PINCache/PINCache.framework",
 				"${BUILT_PRODUCTS_DIR}/PINOperation/PINOperation.framework",
 				"${BUILT_PRODUCTS_DIR}/PINRemoteImage/PINRemoteImage.framework",
@@ -378,6 +403,7 @@
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlignedCollectionViewFlowLayout.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PINCache.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PINOperation.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PINRemoteImage.framework",
@@ -411,6 +437,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1FA2A0D51FDB12B50019FDFF /* CommentsHeaderNode.swift in Sources */,
+				1FABE2681FF4ECEA00979699 /* FriendsBaseViewController.swift in Sources */,
 				1FC2D97A1FC2DFED00ACED38 /* UserDefaults+Keys.swift in Sources */,
 				1F2BC09B1FC5A22600810348 /* Event.swift in Sources */,
 				1F2B2B6D1FDC4A8B00EDB1AE /* ExtendetEventHeaderNode.swift in Sources */,
@@ -419,9 +446,13 @@
 				1F45C5301FBD9E04004AD0DE /* SMGroupCheckboxController.swift in Sources */,
 				1F6F380E1F96268B00380706 /* RequestManager.swift in Sources */,
 				1F2BC09F1FC5C5E500810348 /* Animals.swift in Sources */,
+				1FABE2701FF4FD1F00979699 /* FriendContainerNode.swift in Sources */,
 				1F45C52F1FBD9E04004AD0DE /* SMCheckbox.swift in Sources */,
+				1FF711891FFA847800E2BACE /* InviteHeader.swift in Sources */,
+				1FEA544D1FE18F970049A1C7 /* InputAccessoryView.swift in Sources */,
 				1F56D0CF1F9E3D4600E9B1F6 /* String+Regex.swift in Sources */,
 				1F5B902C1FD6EB26004801CF /* PostCellNode.swift in Sources */,
+				1FF711851FF954EA00E2BACE /* InviteViewController.swift in Sources */,
 				1F5B90251FD6AF00004801CF /* Comment.swift in Sources */,
 				1F6F38041F96101B00380706 /* SignUpViewController.swift in Sources */,
 				1F2824DB1F9A032D003A94DE /* UITextField+Warning.swift in Sources */,
@@ -430,13 +461,16 @@
 				1F3D06D11FD96F3E00CC0BCF /* InteractorController.swift in Sources */,
 				1F7D50B41F949DFA006209C4 /* LoginViewController.swift in Sources */,
 				1F3D06CF1FD969FE00CC0BCF /* DismissAnimationController.swift in Sources */,
+				1FABE26A1FF4F20C00979699 /* Friend.swift in Sources */,
 				1F2BC0991FC593D000810348 /* TimelineViewController.swift in Sources */,
 				1FF3100D1FDB042E0004068B /* CommentsViewController.swift in Sources */,
 				1F5B902B1FD6EB26004801CF /* CommentCellNode.swift in Sources */,
 				1F0BB63E1FBDBD7000FFB6BA /* UIColor+TwistPalette.swift in Sources */,
+				1F528EA51FDEC68B00EC4FA3 /* EventExtendetViewController.swift in Sources */,
 				1F7D50A11F949DAC006209C4 /* AppDelegate.swift in Sources */,
-				1FF310091FDB00580004068B /* ExtendetEventViewController.swift in Sources */,
 				1F45C52E1FBD9E04004AD0DE /* SMCheckboxAnimationController.swift in Sources */,
+				1FF711831FF9549F00E2BACE /* FriendsViewController.swift in Sources */,
+				1FABE26C1FF4F8A800979699 /* FriendCell.swift in Sources */,
 				1F56D0CD1F9E36E600E9B1F6 /* DateManager.swift in Sources */,
 				1F3D06CD1FD969E600CC0BCF /* PresentAnimationController.swift in Sources */,
 				1F5B902A1FD6EB26004801CF /* EventCellNode.swift in Sources */,

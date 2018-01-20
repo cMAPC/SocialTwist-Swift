@@ -16,6 +16,7 @@ protocol EventCellDelegate: class {
     func didTapLikeButton(sender: ASButtonNode)
     func didTapDislikeButton(sender: ASButtonNode)
     func didTapCommentButton(sender: ASButtonNode)
+    func didTapEventDescriptionNode(event: Event)
 }
 
 class EventCellNode: ASCellNode {
@@ -82,6 +83,7 @@ class EventCellNode: ASCellNode {
         likeButtonNode.addTarget(self, action: #selector(didTapLikeButton(_:)), forControlEvents: .touchUpInside)
         dislikeButtonNode.addTarget(self, action: #selector(didTapDislikeButton(_:)), forControlEvents: .touchUpInside)
         commentButtonNode.addTarget(self, action: #selector(didTapCommentButton(_:)), forControlEvents: .touchUpInside)
+        eventDescriptionNode.addTarget(self, action: #selector(didTapEventDescriptionNode(_:)), forControlEvents: .touchUpInside)
     }
     
     //-----------------------------
@@ -276,6 +278,10 @@ class EventCellNode: ASCellNode {
     
     @objc func didTapCommentButton(_ sender: ASButtonNode) {
         delegate?.didTapCommentButton(sender: sender)
+    }
+    
+    @objc func didTapEventDescriptionNode(_ sender: ASTextNode) {
+        delegate?.didTapEventDescriptionNode(event: event)
     }
     
     //-----------------------------

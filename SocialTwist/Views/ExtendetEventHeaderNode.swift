@@ -47,16 +47,10 @@ class ExtendetEventHeaderNode: ASDisplayNode {
         super.init()
         backgroundColor = UIColor.white
         setupNodes()
+        setupSizeRange()
         buildNodeHierarchy()
-        
-        let min = CGSize(width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height/3.0 * 2.0)
-        let max = CGSize(width: UIScreen.main.bounds.size.width, height: CGFloat.greatestFiniteMagnitude)
-        
-        self.layoutThatFits(ASSizeRange(min: min, max: max))
     }
-    override func didLoad() {
-        print("Size is \(self.calculatedSize.height)")
-    }
+
     //-----------------------------
     // MARK: - Setup
     //-----------------------------
@@ -70,6 +64,12 @@ class ExtendetEventHeaderNode: ASDisplayNode {
         setupTopDelimiterNode()
         setupBottomDelimiterNode()
         setupAttendButtonNode()
+    }
+    
+    private func setupSizeRange() {
+        let min = CGSize(width: UIScreen.main.bounds.size.width, height: 100)
+        let max = CGSize(width: UIScreen.main.bounds.size.width, height: CGFloat.greatestFiniteMagnitude)
+        self.layoutThatFits(ASSizeRange(min: min, max: max))
     }
     
     private func setupCreatorImageNode() {
@@ -94,7 +94,7 @@ class ExtendetEventHeaderNode: ASDisplayNode {
     
     private func setupEventDescriptionNode() {
         eventDescriptionNode.attributedText = NSAttributedString(string: event.description, attributes: nil)
-        eventDescriptionNode.maximumNumberOfLines = 5
+//        eventDescriptionNode.maximumNumberOfLines = 5
     }
     
     private func setupTopDelimiterNode() {
@@ -108,7 +108,7 @@ class ExtendetEventHeaderNode: ASDisplayNode {
     }
     
     private func setupAttendButtonNode() {
-        attendButtonNode.setImage(#imageLiteral(resourceName: "like"), for: .normal)
+        attendButtonNode.setTitle("Attend", with: UIFont.systemFont(ofSize: 13.0), with: UIColor.black, for: .normal)
         attendButtonNode.style.flexGrow = 1.0
         attendButtonNode.style.preferredSize = CGSize(width: ASDimensionAuto.value, height: 42.0)
     }

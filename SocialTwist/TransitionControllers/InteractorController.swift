@@ -16,8 +16,7 @@ class InteractorController: UIPercentDrivenInteractiveTransition {
     
     var interactionInProgress = false
     var shouldCompleteTransaction = false
-    
-    
+
     private weak var viewController: UIViewController!
     private weak var tableView: UITableView!
     
@@ -60,11 +59,13 @@ class InteractorController: UIPercentDrivenInteractiveTransition {
                 
             case .began:
                 interactionInProgress = true
-                if  velocity.y < 0 {
-                    break
-                } else {
+                if  velocity.y > 0 {
                     viewController.dismiss(animated: true, completion: nil)
                 }
+//                    break
+//                } else {
+//                    viewController.dismiss(animated: true, completion: nil)
+//                }
 
             case .changed:
                 shouldCompleteTransaction = progress > percentThreshold

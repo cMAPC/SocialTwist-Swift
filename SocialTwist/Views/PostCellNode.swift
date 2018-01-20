@@ -15,6 +15,8 @@ import AsyncDisplayKit
 
 protocol PostCellDelegate: class {
     func didTapPhotoButton(sender: ASButtonNode)
+    func didTapInviteButton(sender: ASButtonNode)
+    func didTapPlaceButton(sender: ASButtonNode)
 }
 
 class PostCellNode: ASCellNode {
@@ -47,7 +49,9 @@ class PostCellNode: ASCellNode {
     let eventImageNode: ImageNode
     private let inputTextNode: ASEditableTextNode
     private let bottomDelimiterNode: ASDisplayNode
+    private let placeButtonNode: ASButtonNode
     private let categoryButtonNode: ASButtonNode
+    private let inviteButtonNode: ASButtonNode
     private let photoButtonNode: ASButtonNode
     private let postButtonNode: ASButtonNode
     private let bottomSpacerNode: ASDisplayNode
@@ -64,7 +68,9 @@ class PostCellNode: ASCellNode {
         eventImageNode = ImageNode()
         inputTextNode = ASEditableTextNode()
         bottomDelimiterNode = ASDisplayNode()
+        placeButtonNode = ASButtonNode()
         categoryButtonNode = ASButtonNode()
+        inviteButtonNode = ASButtonNode()
         photoButtonNode = ASButtonNode()
         postButtonNode = ASButtonNode()
         bottomSpacerNode = ASDisplayNode()
@@ -79,7 +85,9 @@ class PostCellNode: ASCellNode {
     override func didLoad() {
         inputTextNode.delegate = self
         
+        placeButtonNode.addTarget(self, action: #selector(didTapPlaceButton(_:)), forControlEvents: .touchUpInside)
         photoButtonNode.addTarget(self, action: #selector(didTapPhotoButton(_:)), forControlEvents: .touchUpInside)
+        inviteButtonNode.addTarget(self, action: #selector(didTapInviteButton(_:)), forControlEvents: .touchUpInside)
         categoryButtonNode.addTarget(self, action: #selector(didTapCategoryButton(_:)), forControlEvents: .touchUpInside)
         postButtonNode.addTarget(self, action: #selector(didTapPostButton(_:)), forControlEvents: .touchUpInside)
         eventImageNode.deleteButton.addTarget(self, action: #selector(didTapDeleteButton(_:)), forControlEvents: .touchUpInside)
@@ -93,7 +101,9 @@ class PostCellNode: ASCellNode {
         setupUserImageNode()
         setupInputTextNode()
         setupBottomDelimiterNode()
+        setupPlaceButtonNode()
         setupCategoryButtonNode()
+        setupInviteButtonNode()
         setupPhotoButtonNode()
         setupPostButtonNode()
         setupBottomSpacerNode()
@@ -109,6 +119,8 @@ class PostCellNode: ASCellNode {
     private func setupInputTextNode() {
         inputTextNode.attributedPlaceholderText = NSAttributedString(string: "What's new ?", attributes: placeholderAttributes)
         inputTextNode.maximumLinesToDisplay = 10
+        inputTextNode.backgroundColor = UIColor.red
+        inputTextNode.scrollEnabled = false
     }
     
     private func setupBottomDelimiterNode() {
@@ -116,9 +128,19 @@ class PostCellNode: ASCellNode {
         bottomDelimiterNode.backgroundColor = UIColor.TwistPalette.FlatGray
     }
     
+    private func setupPlaceButtonNode() {
+        placeButtonNode.setImage(#imageLiteral(resourceName: "marker"), for: .normal)
+        placeButtonNode.style.preferredSize = buttonSize
+    }
+    
     private func setupCategoryButtonNode() {
         categoryButtonNode.setImage(#imageLiteral(resourceName: "marker"), for: .normal)
         categoryButtonNode.style.preferredSize = buttonSize
+    }
+    
+    private func setupInviteButtonNode() {
+        inviteButtonNode.setImage(#imageLiteral(resourceName: "invite"), for: .normal)
+        inviteButtonNode.style.preferredSize = buttonSize
     }
     
     private func setupPhotoButtonNode() {
@@ -147,8 +169,10 @@ class PostCellNode: ASCellNode {
         addSubnode(userImageNode)
         addSubnode(eventImageNode)
         addSubnode(inputTextNode)
+        addSubnode(placeButtonNode)
         addSubnode(bottomDelimiterNode)
         addSubnode(categoryButtonNode)
+        addSubnode(inviteButtonNode)
         addSubnode(photoButtonNode)
         addSubnode(postButtonNode)
         addSubnode(bottomSpacerNode)
@@ -188,7 +212,7 @@ class PostCellNode: ASCellNode {
                                                   spacing: 0.0,
                                                   justifyContent: .start,
                                                   alignItems: .start,
-                                                  children: [categoryButtonNode, photoButtonNode, spacerNode, postButtonLayout])
+                                                  children: [placeButtonNode, categoryButtonNode, inviteButtonNode, photoButtonNode, spacerNode, postButtonLayout])
         
         // Vertical stack
         let verticalStackLayout = ASStackLayoutSpec.vertical()
@@ -205,8 +229,16 @@ class PostCellNode: ASCellNode {
         delegate?.didTapPhotoButton(sender: sender)
     }
     
+    @objc func didTapPlaceButton(_ sender: ASButtonNode) {
+        delegate?.didTapPlaceButton(sender: sender)
+    }
+    
     @objc func didTapCategoryButton(_ sender: ASButtonNode) {
         
+    }
+    
+    @objc func didTapInviteButton(_ sender: ASButtonNode) {
+        delegate?.didTapInviteButton(sender: sender)
     }
     
     @objc func didTapPostButton(_ sender: ASButtonNode) {
@@ -236,7 +268,7 @@ class PostCellNode: ASCellNode {
 
 extension PostCellNode: ASEditableTextNodeDelegate {
     func editableTextNodeDidChangeSelection(_ editableTextNode: ASEditableTextNode, fromSelectedRange: NSRange, toSelectedRange: NSRange, dueToEditing: Bool) {
-        self.setNeedsLayout()
+        setNeedsLayout()
     }
 }
 

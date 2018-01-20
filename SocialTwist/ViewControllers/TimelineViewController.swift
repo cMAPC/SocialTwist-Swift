@@ -68,10 +68,10 @@ class TimelineViewController: UIViewController {
                     imagerUr = imagerUrl
                 }
                 let event = Event(imageURL: imagerUr,
-                                creatorImageURL: imagerUrl,
-                                creatorName: "Marcel Spinu",
-                                description: "Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description",
-                                place: "Chisinau Chisinau Chisinau Chisinau")
+                                  creatorImageURL: imagerUrl,
+                                  creatorName: "Marcel Spinu",
+                                  description: "Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description",
+                                  place: "Chisinau Chisinau Chisinau Chisinau")
                 self.events.append(event)
             }
             self.tableNode?.reloadData()
@@ -164,14 +164,21 @@ extension TimelineViewController: EventCellDelegate {
     }
 
     func didTapCommentButton(sender: ASButtonNode) {        
-        let commentsVC = CommentsViewController(tableStyle: .grouped)
+        let commentsVC = CommentsViewController()
         commentsVC.transitioningDelegate = self
         commentsVC.modalPresentationStyle = .overCurrentContext
-//        commentsVC.interactionController = interactor
         present(commentsVC, animated: true, completion: nil)
+    }
+    
+    func didTapEventDescriptionNode(event: Event) {
+//        let eventExtendetVC = EventExtendetViewController(event: event)
+//        present(eventExtendetVC, animated: true, completion: nil)
         
-//        let extendetEventVC = ExtendetEventViewController(event: events[1])
-//        present(extendetEventVC, animated: true, completion: nil)
+//        let friendsVC = FriendsBaseViewController()
+//        present(friendsVC, animated: true, completion: nil)
+        
+        let inviteVC = InviteViewController()
+        present(inviteVC, animated: true, completion: nil)
         
     }
 }
@@ -184,6 +191,32 @@ extension TimelineViewController: EventCellDelegate {
 extension TimelineViewController: PostCellDelegate {
     func didTapPhotoButton(sender: ASButtonNode) {
         present(imagePicker, animated: true, completion: nil)
+    }
+    
+    func didTapInviteButton(sender: ASButtonNode) {
+        let inviteVC = InviteViewController()
+        let inviteNC = UINavigationController(rootViewController: inviteVC)
+        present(inviteNC, animated: true, completion: nil)
+    }
+    
+    func didTapPlaceButton(sender: ASButtonNode) {
+        let alertController = UIAlertController(title: "Title", message: "Message", preferredStyle: .actionSheet)
+        let currentPlaceAction = UIAlertAction(title: "Current place", style: .default) { (completed) in
+            
+        }
+        
+        let customPlaceAction = UIAlertAction(title: "Choose another place", style: .default) { (completed) in
+            
+        }
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (completed) in
+            
+        }
+        
+        alertController.addAction(currentPlaceAction)
+        alertController.addAction(customPlaceAction)
+        alertController.addAction(cancelAction)
+        present(alertController, animated: true, completion: nil)
     }
 }
 
