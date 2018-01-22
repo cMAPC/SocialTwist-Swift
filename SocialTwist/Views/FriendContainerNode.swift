@@ -65,7 +65,7 @@ class FriendContainerNode: ASDisplayNode {
     
     private func setupImageNode() {
         imageNode.url = URL(string: friend.pictureURL)
-        imageNode.style.preferredSize = CGSize(width: 55.0, height: 55.0)
+        imageNode.style.preferredSize = CGSize(width: 56.0, height: 56.0)
         imageNode.cornerRadius = 11
 //        imageNode.shadowRadius = 8
 //        imageNode.shadowColor = UIColor.black.cgColor

@@ -30,6 +30,7 @@ class EventExtendetViewController: EventBaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableNode.contentInset = UIEdgeInsetsMake(0, 0, 15, 0)
         tableNode.reloadData()
     }
 }

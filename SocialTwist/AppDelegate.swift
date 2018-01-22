@@ -17,10 +17,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
-//        let inviteVC: InviteViewController = InviteViewController()
-//        let inviteNC = UINavigationController(rootViewController: inviteVC)
-//        
-//        self.window?.rootViewController = inviteNC
+        let feedVC = TimelineViewController()
+        let feedNC = UINavigationController(rootViewController: feedVC)
+        
+        self.window?.rootViewController = feedNC
         
         return true
     }

@@ -9,11 +9,28 @@
 import Foundation
 
 struct Event {
-    let imageURL: String
-    let creatorImageURL: String
-    let creatorName: String
-    let description: String
-    let place: String
+    var imageURL: String
+    var creatorImageURL: String
+    var creatorName: String
+    var description: String
+    var place: String
+    var attenders: Int
+    var startTime: String
+    
+    
+}
+
+extension Event {
+    
+    init() {
+        imageURL = ""
+        creatorImageURL = ""
+        creatorName = ""
+        description = ""
+        place = ""
+        attenders = 0
+        startTime = ""
+    }
 }
 
 /*

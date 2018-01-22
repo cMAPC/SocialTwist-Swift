@@ -30,6 +30,7 @@ class CommentsViewController: EventBaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableNode.contentInset = UIEdgeInsetsMake(0, 0, 95, 0)
         headerView.delegate = self
         interactionController = InteractorController(viewController: self, tableView: tableNode.view)
     }

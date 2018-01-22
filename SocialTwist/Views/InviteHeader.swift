@@ -23,8 +23,14 @@ class InviteHeader: UIView {
     
     var collectionView: UICollectionView!
     var guests = [Friend]()
-    var maxHeight = 100
-    
+    var maxHeight: CGFloat = 108
+    var height: CGFloat {
+        if intrinsicContentSize.height < maxHeight{
+            return intrinsicContentSize.height == 0 ? 10 : intrinsicContentSize.height
+        } else {
+            return maxHeight
+        }
+    }
     
     // MARK: - Constants
     
@@ -37,8 +43,8 @@ class InviteHeader: UIView {
         
         //This is required to make view grow vertically
         autoresizingMask = .flexibleHeight
+        backgroundColor = UIColor.clear
         
-        backgroundColor = UIColor.TwistPalette.FlatGray
         setupCollectionView()
         setupConstraints()
     }
@@ -55,7 +61,7 @@ class InviteHeader: UIView {
         collectionView.register(GuestCell.self, forCellWithReuseIdentifier: reuseIndentifier)
         collectionView.delegate = self
         collectionView.dataSource = self
-        collectionView.backgroundColor = UIColor.TwistPalette.FlatGray
+        collectionView.backgroundColor = UIColor.clear
         addSubview(collectionView)
     }
     
@@ -72,23 +78,56 @@ class InviteHeader: UIView {
         return collectionView.collectionViewLayout.collectionViewContentSize
     }
     
-    // MARK: - Action's
+    // MARK: - CollectionView action's
     
-    @objc func didTapDeleteButton(_ sender: UIButton, _ event: UIEvent) {
+    func insertNewGuest(guest: Friend) {
+        if !guests.contains(where: {$0.id == guest.id}) {
+            guests.append(guest)
+            let row = guests.count - 1
+            let indexPath = IndexPath(row: row, section: 0)
+            collectionView.insertItems(at: [indexPath])
+        }
+        
+        // Scroll to bottom
+        if intrinsicContentSize.height > maxHeight {
+            scrollToBottom()
+        }
+        
+        collectionView.backgroundColor = UIColor.TwistPalette.FlatGray
+    }
+    
+    func scrollToBottom() {
+        let lastItemIndex = IndexPath(item: guests.count - 1, section: 0)
+        collectionView.scrollToItem(at: lastItemIndex, at: .centeredVertically, animated: true);
+    }
+}
+
+
+// MARK: - CollectionView Cell Delegate
+
+extension InviteHeader: GuestCellDelegate {
+    func didTapDeleteButton(_ sender: UIButton, _ event: UIEvent) {
         let touches = event.allTouches
         let touch = touches?.first
         let point = touch?.location(in: collectionView)
         let indexPath = collectionView.indexPathForItem(at: point!)
-//        print("Touched index path point \(indexPath)")
+        //        print("Touched index path point \(indexPath)")
         
         guests.remove(at: (indexPath?.row)!)
         collectionView.deleteItems(at: [indexPath!])
+        
+        // Set clear color if collection view is empty
+        if collectionView.numberOfItems(inSection: 0) == 0 {
+            collectionView.backgroundColor = UIColor.clear
+        }
         
         delegate?.didTapDeleteButton()
     }
 }
 
+
 // MARK: - CollectionView Delegate, Data Source
+
 extension InviteHeader: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     // MARK: - CollectionView Data Source
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -99,9 +138,8 @@ extension InviteHeader: UICollectionViewDelegate, UICollectionViewDataSource, UI
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIndentifier, for: indexPath) as! GuestCell
         
         let guest = guests[indexPath.row]
-        cell.deleteButton.tag = indexPath.row
-        cell.deleteButton.addTarget(self, action: #selector(didTapDeleteButton(_:_:)), for: .touchUpInside)
         cell.label.text = guest.firstName + guest.lastName
+        cell.delegate = self
         
         return cell
     }
@@ -120,7 +158,7 @@ extension InviteHeader: UICollectionViewDelegate, UICollectionViewDataSource, UI
 //        print("Label size \(size)")
 //        print("Screen size \(screenBounds.width)")
 //        print("Collection size \(collectionView.frame.size)")
-//        print("Layou size \(collectionView.collectionViewLayout.collectionViewContentSize.height)")
+//        print("Layout size \(collectionView.collectionViewLayout.collectionViewContentSize.height)")
         
         if currentWidth > collectionView.frame.size.width - 5 {
            return CGSize(width: collectionView.frame.size.width - 2, height: size.height + 8)
@@ -137,9 +175,24 @@ extension InviteHeader: UICollectionViewDelegate, UICollectionViewDataSource, UI
 
 
 
+
+
+
+
+
+
+
 // MARK: - CollectionView Cell
 
+// MARK: - Protocols
+
+protocol GuestCellDelegate: class {
+    func didTapDeleteButton(_ sender: UIButton, _ event: UIEvent)
+}
+
 class GuestCell: UICollectionViewCell {
+    
+    weak var delegate: GuestCellDelegate?
     
     // MARK: - Constants
     
@@ -180,6 +233,7 @@ class GuestCell: UICollectionViewCell {
     private func setupDeleteButton() {
         deleteButton.setImage(#imageLiteral(resourceName: "delete"), for: .normal)
         deleteButton.backgroundColor = UIColor.clear
+        deleteButton.addTarget(self, action: #selector(didTapDeleteButton(_:_:)), for: .touchUpInside)
     }
     
     private func setupConstraints() {
@@ -193,5 +247,11 @@ class GuestCell: UICollectionViewCell {
         addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-[v0(<=labelMaxWidth)][v1(>=25,<=26)]|", options: [], metrics: metrics, views: views))
         addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[v0]|", options: [], metrics: nil, views: views))
         addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[v1]|", options: [], metrics: nil, views: views))
+    }
+    
+    // MARK: - Action's
+    
+    @objc func didTapDeleteButton(_ sender: UIButton, _ event: UIEvent) {
+        delegate?.didTapDeleteButton(sender, event)
     }
 }

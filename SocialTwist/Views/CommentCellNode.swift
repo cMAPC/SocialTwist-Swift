@@ -26,7 +26,7 @@ class CommentCellNode: ASCellNode {
     // MARK: - Layout
     
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
-        return ASInsetLayoutSpec(insets: UIEdgeInsetsMake(10, 10, 10, 10), child: containerNode)
+        return ASInsetLayoutSpec(insets: UIEdgeInsetsMake(10, 10, 0, 10), child: containerNode)
     }
     
 }

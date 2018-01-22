@@ -23,13 +23,32 @@ extension String {
     }
     
     func toStringDate(fromDateFormat: String, toDateFormat: String) -> String {
-        let dateFormatter = DateFormatter ()
+        let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = fromDateFormat
         let oldFormatDate = dateFormatter.date(from: self)
         dateFormatter.dateFormat = toDateFormat
         let newFormatDate: String  = dateFormatter.string(from: oldFormatDate!)
         
         return newFormatDate
+    }
+    
+    func timestampStringDate(_withFormat format: String) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = format
+//        let timestamp = Double(self)
+    
+//        let date: Date?
+//        if let timestamp = Double(self) {
+//            date = Date(timeIntervalSince1970: timestamp)
+//            return dateFormatter.string(from: date)
+//        }
+//
+        guard let timestamp = Double(self) else {
+            return "timestampStringDate error"
+        }
+        
+        let date = Date(timeIntervalSince1970: timestamp)
+        return dateFormatter.string(from: date)
     }
     
     var letters: String {

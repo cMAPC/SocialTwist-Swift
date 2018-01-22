@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1F0BB63E1FBDBD7000FFB6BA /* UIColor+TwistPalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0BB63D1FBDBD7000FFB6BA /* UIColor+TwistPalette.swift */; };
+		1F1B5B582014020800B34ECC /* UIBarButtonItem+CustomStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1B5B572014020800B34ECC /* UIBarButtonItem+CustomStyle.swift */; };
 		1F2824DB1F9A032D003A94DE /* UITextField+Warning.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2824DA1F9A032D003A94DE /* UITextField+Warning.swift */; };
 		1F2B2B6D1FDC4A8B00EDB1AE /* ExtendetEventHeaderNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2B2B6C1FDC4A8B00EDB1AE /* ExtendetEventHeaderNode.swift */; };
 		1F2BC0991FC593D000810348 /* TimelineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2BC0981FC593D000810348 /* TimelineViewController.swift */; };
@@ -44,6 +45,17 @@
 		1FABE26C1FF4F8A800979699 /* FriendCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FABE26B1FF4F8A800979699 /* FriendCell.swift */; };
 		1FABE2701FF4FD1F00979699 /* FriendContainerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FABE26F1FF4FD1F00979699 /* FriendContainerNode.swift */; };
 		1FC2D97A1FC2DFED00ACED38 /* UserDefaults+Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC2D9791FC2DFED00ACED38 /* UserDefaults+Keys.swift */; };
+		1FE19A852015413D00AB2424 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 1FE19A7C2015413D00AB2424 /* LICENSE */; };
+		1FE19A862015413D00AB2424 /* LocationSearchResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE19A7E2015413D00AB2424 /* LocationSearchResultsViewController.swift */; };
+		1FE19A872015413D00AB2424 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE19A802015413D00AB2424 /* Location.swift */; };
+		1FE19A882015413D00AB2424 /* LocationPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE19A812015413D00AB2424 /* LocationPickerViewController.swift */; };
+		1FE19A892015413D00AB2424 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1FE19A822015413D00AB2424 /* Images.xcassets */; };
+		1FE19A8A2015413D00AB2424 /* SearchHistoryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE19A832015413D00AB2424 /* SearchHistoryManager.swift */; };
+		1FE19A8B2015413D00AB2424 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 1FE19A842015413D00AB2424 /* README.md */; };
+		1FE19A9320161E6800AB2424 /* StepCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE19A8F20161E6800AB2424 /* StepCollectionViewFlowLayout.swift */; };
+		1FE19A9420161E6800AB2424 /* FullDateCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE19A9020161E6800AB2424 /* FullDateCollectionViewCell.swift */; };
+		1FE19A9520161E6800AB2424 /* DateTimePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE19A9120161E6800AB2424 /* DateTimePicker.swift */; };
+		1FE19A9620161E6800AB2424 /* DateCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE19A9220161E6800AB2424 /* DateCollectionViewCell.swift */; };
 		1FEA544D1FE18F970049A1C7 /* InputAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEA544C1FE18F970049A1C7 /* InputAccessoryView.swift */; };
 		1FF3100D1FDB042E0004068B /* CommentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF3100C1FDB042E0004068B /* CommentsViewController.swift */; };
 		1FF711831FF9549F00E2BACE /* FriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF711821FF9549F00E2BACE /* FriendsViewController.swift */; };
@@ -55,6 +67,7 @@
 /* Begin PBXFileReference section */
 		1295112271017C6A8636613A /* Pods-SocialTwist.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SocialTwist.release.xcconfig"; path = "Pods/Target Support Files/Pods-SocialTwist/Pods-SocialTwist.release.xcconfig"; sourceTree = "<group>"; };
 		1F0BB63D1FBDBD7000FFB6BA /* UIColor+TwistPalette.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+TwistPalette.swift"; sourceTree = "<group>"; };
+		1F1B5B572014020800B34ECC /* UIBarButtonItem+CustomStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIBarButtonItem+CustomStyle.swift"; sourceTree = "<group>"; };
 		1F2824DA1F9A032D003A94DE /* UITextField+Warning.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Warning.swift"; sourceTree = "<group>"; };
 		1F2B2B6C1FDC4A8B00EDB1AE /* ExtendetEventHeaderNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtendetEventHeaderNode.swift; sourceTree = "<group>"; };
 		1F2BC0981FC593D000810348 /* TimelineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineViewController.swift; sourceTree = "<group>"; };
@@ -93,6 +106,18 @@
 		1FABE26B1FF4F8A800979699 /* FriendCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendCell.swift; sourceTree = "<group>"; };
 		1FABE26F1FF4FD1F00979699 /* FriendContainerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendContainerNode.swift; sourceTree = "<group>"; };
 		1FC2D9791FC2DFED00ACED38 /* UserDefaults+Keys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Keys.swift"; sourceTree = "<group>"; };
+		1FE19A7C2015413D00AB2424 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		1FE19A7E2015413D00AB2424 /* LocationSearchResultsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationSearchResultsViewController.swift; sourceTree = "<group>"; };
+		1FE19A7F2015413D00AB2424 /* LocationPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationPicker.h; sourceTree = "<group>"; };
+		1FE19A802015413D00AB2424 /* Location.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
+		1FE19A812015413D00AB2424 /* LocationPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationPickerViewController.swift; sourceTree = "<group>"; };
+		1FE19A822015413D00AB2424 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		1FE19A832015413D00AB2424 /* SearchHistoryManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchHistoryManager.swift; sourceTree = "<group>"; };
+		1FE19A842015413D00AB2424 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		1FE19A8F20161E6800AB2424 /* StepCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StepCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
+		1FE19A9020161E6800AB2424 /* FullDateCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FullDateCollectionViewCell.swift; sourceTree = "<group>"; };
+		1FE19A9120161E6800AB2424 /* DateTimePicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateTimePicker.swift; sourceTree = "<group>"; };
+		1FE19A9220161E6800AB2424 /* DateCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateCollectionViewCell.swift; sourceTree = "<group>"; };
 		1FEA544C1FE18F970049A1C7 /* InputAccessoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputAccessoryView.swift; sourceTree = "<group>"; };
 		1FF310081FDB00580004068B /* EventExtendetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventExtendetViewController.swift; sourceTree = "<group>"; };
 		1FF3100C1FDB042E0004068B /* CommentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsViewController.swift; sourceTree = "<group>"; };
@@ -122,6 +147,7 @@
 				1F0BB63D1FBDBD7000FFB6BA /* UIColor+TwistPalette.swift */,
 				1F56D0CE1F9E3D4600E9B1F6 /* String+Regex.swift */,
 				1FC2D9791FC2DFED00ACED38 /* UserDefaults+Keys.swift */,
+				1F1B5B572014020800B34ECC /* UIBarButtonItem+CustomStyle.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -249,6 +275,7 @@
 		1F7D509F1F949DAC006209C4 /* SocialTwist */ = {
 			isa = PBXGroup;
 			children = (
+				1FE19A7A2015413C00AB2424 /* ThirdPartyLib's */,
 				1F2824D91F9A02A2003A94DE /* Extensions */,
 				1F6F38051F9610D600380706 /* Utilities */,
 				1F6F380B1F96264000380706 /* Server */,
@@ -278,6 +305,49 @@
 				1FF711841FF954EA00E2BACE /* InviteViewController.swift */,
 			);
 			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		1FE19A7A2015413C00AB2424 /* ThirdPartyLib's */ = {
+			isa = PBXGroup;
+			children = (
+				1FE19A8E20161E6800AB2424 /* DateTimePicker */,
+				1FE19A7B2015413D00AB2424 /* LocationPicker */,
+			);
+			path = "ThirdPartyLib's";
+			sourceTree = "<group>";
+		};
+		1FE19A7B2015413D00AB2424 /* LocationPicker */ = {
+			isa = PBXGroup;
+			children = (
+				1FE19A7C2015413D00AB2424 /* LICENSE */,
+				1FE19A7D2015413D00AB2424 /* LocationPicker */,
+				1FE19A842015413D00AB2424 /* README.md */,
+			);
+			path = LocationPicker;
+			sourceTree = "<group>";
+		};
+		1FE19A7D2015413D00AB2424 /* LocationPicker */ = {
+			isa = PBXGroup;
+			children = (
+				1FE19A7E2015413D00AB2424 /* LocationSearchResultsViewController.swift */,
+				1FE19A7F2015413D00AB2424 /* LocationPicker.h */,
+				1FE19A802015413D00AB2424 /* Location.swift */,
+				1FE19A812015413D00AB2424 /* LocationPickerViewController.swift */,
+				1FE19A822015413D00AB2424 /* Images.xcassets */,
+				1FE19A832015413D00AB2424 /* SearchHistoryManager.swift */,
+			);
+			path = LocationPicker;
+			sourceTree = "<group>";
+		};
+		1FE19A8E20161E6800AB2424 /* DateTimePicker */ = {
+			isa = PBXGroup;
+			children = (
+				1FE19A8F20161E6800AB2424 /* StepCollectionViewFlowLayout.swift */,
+				1FE19A9020161E6800AB2424 /* FullDateCollectionViewCell.swift */,
+				1FE19A9120161E6800AB2424 /* DateTimePicker.swift */,
+				1FE19A9220161E6800AB2424 /* DateCollectionViewCell.swift */,
+			);
+			path = DateTimePicker;
 			sourceTree = "<group>";
 		};
 		9E3F6526701803F88B065AA2 /* Pods */ = {
@@ -359,8 +429,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1FE19A8B2015413D00AB2424 /* README.md in Resources */,
 				1F7D50AB1F949DAC006209C4 /* LaunchScreen.storyboard in Resources */,
+				1FE19A892015413D00AB2424 /* Images.xcassets in Resources */,
 				1F684B541FD19A21001F015D /* Assets.xcassets in Resources */,
+				1FE19A852015413D00AB2424 /* LICENSE in Resources */,
 				1F7D50A61F949DAC006209C4 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -395,18 +468,22 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-SocialTwist/Pods-SocialTwist-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/AlignedCollectionViewFlowLayout/AlignedCollectionViewFlowLayout.framework",
+				"${BUILT_PRODUCTS_DIR}/ImageViewer/ImageViewer.framework",
 				"${BUILT_PRODUCTS_DIR}/PINCache/PINCache.framework",
 				"${BUILT_PRODUCTS_DIR}/PINOperation/PINOperation.framework",
 				"${BUILT_PRODUCTS_DIR}/PINRemoteImage/PINRemoteImage.framework",
+				"${BUILT_PRODUCTS_DIR}/SimpleImageViewer/SimpleImageViewer.framework",
 				"${BUILT_PRODUCTS_DIR}/Texture/AsyncDisplayKit.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlignedCollectionViewFlowLayout.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ImageViewer.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PINCache.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PINOperation.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PINRemoteImage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SimpleImageViewer.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AsyncDisplayKit.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -436,9 +513,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1FE19A862015413D00AB2424 /* LocationSearchResultsViewController.swift in Sources */,
 				1FA2A0D51FDB12B50019FDFF /* CommentsHeaderNode.swift in Sources */,
 				1FABE2681FF4ECEA00979699 /* FriendsBaseViewController.swift in Sources */,
+				1F1B5B582014020800B34ECC /* UIBarButtonItem+CustomStyle.swift in Sources */,
 				1FC2D97A1FC2DFED00ACED38 /* UserDefaults+Keys.swift in Sources */,
+				1FE19A882015413D00AB2424 /* LocationPickerViewController.swift in Sources */,
 				1F2BC09B1FC5A22600810348 /* Event.swift in Sources */,
 				1F2B2B6D1FDC4A8B00EDB1AE /* ExtendetEventHeaderNode.swift in Sources */,
 				1F2DA6D21FD590F5004ED390 /* EventBaseViewController.swift in Sources */,
@@ -453,14 +533,18 @@
 				1F56D0CF1F9E3D4600E9B1F6 /* String+Regex.swift in Sources */,
 				1F5B902C1FD6EB26004801CF /* PostCellNode.swift in Sources */,
 				1FF711851FF954EA00E2BACE /* InviteViewController.swift in Sources */,
+				1FE19A8A2015413D00AB2424 /* SearchHistoryManager.swift in Sources */,
 				1F5B90251FD6AF00004801CF /* Comment.swift in Sources */,
 				1F6F38041F96101B00380706 /* SignUpViewController.swift in Sources */,
 				1F2824DB1F9A032D003A94DE /* UITextField+Warning.swift in Sources */,
 				1F6F380A1F9610E200380706 /* NavigationController.swift in Sources */,
 				1F45C5311FBD9E04004AD0DE /* SMCheckboxPathController.swift in Sources */,
+				1FE19A9320161E6800AB2424 /* StepCollectionViewFlowLayout.swift in Sources */,
 				1F3D06D11FD96F3E00CC0BCF /* InteractorController.swift in Sources */,
+				1FE19A9620161E6800AB2424 /* DateCollectionViewCell.swift in Sources */,
 				1F7D50B41F949DFA006209C4 /* LoginViewController.swift in Sources */,
 				1F3D06CF1FD969FE00CC0BCF /* DismissAnimationController.swift in Sources */,
+				1FE19A9420161E6800AB2424 /* FullDateCollectionViewCell.swift in Sources */,
 				1FABE26A1FF4F20C00979699 /* Friend.swift in Sources */,
 				1F2BC0991FC593D000810348 /* TimelineViewController.swift in Sources */,
 				1FF3100D1FDB042E0004068B /* CommentsViewController.swift in Sources */,
@@ -468,7 +552,9 @@
 				1F0BB63E1FBDBD7000FFB6BA /* UIColor+TwistPalette.swift in Sources */,
 				1F528EA51FDEC68B00EC4FA3 /* EventExtendetViewController.swift in Sources */,
 				1F7D50A11F949DAC006209C4 /* AppDelegate.swift in Sources */,
+				1FE19A872015413D00AB2424 /* Location.swift in Sources */,
 				1F45C52E1FBD9E04004AD0DE /* SMCheckboxAnimationController.swift in Sources */,
+				1FE19A9520161E6800AB2424 /* DateTimePicker.swift in Sources */,
 				1FF711831FF9549F00E2BACE /* FriendsViewController.swift in Sources */,
 				1FABE26C1FF4F8A800979699 /* FriendCell.swift in Sources */,
 				1F56D0CD1F9E36E600E9B1F6 /* DateManager.swift in Sources */,

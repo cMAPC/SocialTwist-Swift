@@ -57,14 +57,14 @@ class CommentsHeaderNode: ASDisplayNode {
     }
     
     private func setupAttendersCountButtonNode() {
-        attendersCountButtonNode.setImage(#imageLiteral(resourceName: "dismiss"), for: .normal)
+        attendersCountButtonNode.setImage(#imageLiteral(resourceName: "invite"), for: .normal)
         attendersCountButtonNode.style.preferredSize = CGSize(width: 52.0, height: 42.0)
         attendersCountButtonNode.setTitle("58", with: UIFont.boldSystemFont(ofSize: 13), with: UIColor.black, for: .normal)
         attendersCountButtonNode.contentSpacing = 4
     }
     
     private func setupLikesCountButtonNode() {
-        likesCountButtonNode.setImage(#imageLiteral(resourceName: "dismiss"), for: .normal)
+        likesCountButtonNode.setImage(#imageLiteral(resourceName: "like"), for: .normal)
         likesCountButtonNode.setTitle("23", with: UIFont.boldSystemFont(ofSize: 13), with: UIColor.black, for: .normal)
         likesCountButtonNode.contentSpacing = 4
         likesCountButtonNode.style.preferredSize = CGSize(width: 52.0, height: 42.0)

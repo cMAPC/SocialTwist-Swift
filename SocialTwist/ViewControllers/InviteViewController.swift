@@ -9,14 +9,15 @@
 import UIKit
 import AsyncDisplayKit
 
+// MARK: - Protocol
+protocol InviteViewControllerDelegate: class {
+    func didSelectGuests(guests: [Friend])
+}
+
 class InviteViewController: FriendsBaseViewController {
 
-    // MARK: - Properties
-    
-    var headerHeight: CGFloat = 10
-    
     // MARK: - Constants
-    
+    weak var delegate: InviteViewControllerDelegate?
     let inviteHeader = InviteHeader()
 
     // MARK: - Object life cycle
@@ -24,8 +25,6 @@ class InviteViewController: FriendsBaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         inviteHeader.delegate = self
-        inviteHeader.backgroundColor = UIColor.clear
-        inviteHeader.collectionView.backgroundColor = UIColor.clear
     }
 }
 
@@ -36,11 +35,11 @@ extension InviteViewController {
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return headerHeight
+        print(inviteHeader.height)
+        return inviteHeader.height
     }
     
     func tableNode(_ tableNode: ASTableNode, didSelectRowAt indexPath: IndexPath) {
-        // Insert new invitation in header
         let guest: Friend
         if isSearching() {
             guest = filteredFriends[indexPath.row]
@@ -48,36 +47,31 @@ extension InviteViewController {
             guest = friends[indexPath.row]
         }
         
-        if !inviteHeader.guests.contains(where: {$0.id == guest.id}) {
-            inviteHeader.guests.append(guest)
-            let row = inviteHeader.guests.count - 1
-            let indexPath = IndexPath(row: row, section: 0)
-            inviteHeader.collectionView.insertItems(at: [indexPath])
-        }
+        // Insert new guest in header
+        inviteHeader.insertNewGuest(guest: guest)
 
-        // Update(height) and layout header
-        tableNode.performBatchUpdates({
-            headerHeight = inviteHeader.intrinsicContentSize.height
-        }) { (completed) in
-            let delay = tableNode.contentOffset.y > 0 ? 0 : 0.2
-            DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
-                tableNode.performBatchUpdates(nil, completion: nil)
-            }
+        // Update and layout header
+//        tableNode.performBatchUpdates({
+//
+//        }) { (completed) in
+//            let delay = tableNode.contentOffset.y > 0 ? 0 : 0.2
+//            DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
+//                tableNode.performBatchUpdates(nil, completion: nil)
+//            }
+//        }
+        
+        tableNode.performBatchUpdates(nil) { (completed) in
+            self.tableNode.performBatchUpdates(nil, completion: nil)
         }
-
-        inviteHeader.collectionView.backgroundColor = UIColor.TwistPalette.FlatGray
+        
+        delegate?.didSelectGuests(guests: inviteHeader.guests)
     }
 }
 
 // MARK: - Invite header Delegate
 extension InviteViewController: InviteHeaderDelegate {
     func didTapDeleteButton() {
-        if inviteHeader.collectionView.numberOfItems(inSection: 0) == 0 {
-            inviteHeader.collectionView.backgroundColor = UIColor.clear
-        }
-        tableNode.performBatchUpdates({
-            headerHeight = inviteHeader.intrinsicContentSize.height
-        }) { (completed) in
+        tableNode.performBatchUpdates(nil) { (completed) in
             self.tableNode.performBatchUpdates(nil, completion: nil)
         }
     }

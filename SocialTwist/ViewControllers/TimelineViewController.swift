@@ -9,20 +9,18 @@
 import UIKit
 import CoreLocation
 import AsyncDisplayKit
+import ImageViewer
+import SimpleImageViewer
 
 class TimelineViewController: UIViewController {
     
     var tableNode: ASTableNode?
     var events = [Event]()
     
-    
-    let locationManager = CLLocationManager()
-    var imagesUrls = [String]()
-    
     var imagePicker: UIImagePickerController!
+//    var dateTimePicker: DateTimePicker?
     
-    
-    
+    var imagesUrls = [String]()
     
 //    let interactor = InteractorController()
     
@@ -33,6 +31,7 @@ class TimelineViewController: UIViewController {
         getDogs()
         
         tableNode = ASTableNode(style: .plain)
+        tableNode?.view.keyboardDismissMode = .interactive
         view.addSubnode(tableNode!)
 
         wireDelegation()
@@ -40,6 +39,8 @@ class TimelineViewController: UIViewController {
         imagePicker = UIImagePickerController()
         imagePicker.sourceType = .photoLibrary
         imagePicker.delegate = self
+        
+        navigationItem.backBarButtonItem = UIBarButtonItem.backButtonItemWithoutTitle
     }
     
     override func viewWillLayoutSubviews() {
@@ -71,7 +72,9 @@ class TimelineViewController: UIViewController {
                                   creatorImageURL: imagerUrl,
                                   creatorName: "Marcel Spinu",
                                   description: "Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description",
-                                  place: "Chisinau Chisinau Chisinau Chisinau")
+                                  place: "Chisinau Chisinau Chisinau Chisinau",
+                                  attenders: 20,
+                                  startTime: "")
                 self.events.append(event)
             }
             self.tableNode?.reloadData()
@@ -112,6 +115,34 @@ class TimelineViewController: UIViewController {
          }
          */
     }
+    
+    
+    
+    //-----------------------------------------
+    // MARK: - DateTime Picker
+    //-----------------------------------------
+    
+    func showDateTimePicker(completion: ((Date)->Void)?) {
+        let min = Date() //Date().addingTimeInterval(-60 * 60 * 24 * 4)
+        let max = Date().addingTimeInterval(60 * 60 * 24 * 60)
+        let picker = DateTimePicker.show(selected: Date(), minimumDate: min, maximumDate: max)
+        
+        picker.timeInterval = DateTimePicker.MinuteInterval.five
+        picker.highlightColor = UIColor.TwistPalette.FlatBlue
+        picker.darkColor = UIColor.darkGray
+        picker.doneButtonTitle = "Done"
+        picker.doneBackgroundColor = UIColor.TwistPalette.FlatBlue
+        picker.locale = Locale(identifier: "en_GB")
+        
+        picker.todayButtonTitle = ""
+        picker.is12HourFormat = false
+        picker.dateFormat = "d MMMM, h:mm aa"
+        picker.includeMonth = true
+        
+        picker.completionHandler = { date in
+            completion?(date)
+        }
+    }
 }
 
 
@@ -119,7 +150,7 @@ class TimelineViewController: UIViewController {
 // MARK: - Table View Delegate
 //-----------------------------------------
 
-extension TimelineViewController: ASTableDataSource {
+extension TimelineViewController: ASTableDataSource, ASTableDelegate {
     func tableNode(_ tableNode: ASTableNode, numberOfRowsInSection section: Int) -> Int {
         return events.count
     }
@@ -127,9 +158,10 @@ extension TimelineViewController: ASTableDataSource {
     func tableNode(_ tableNode: ASTableNode, nodeBlockForRowAt indexPath: IndexPath) -> ASCellNodeBlock {
         
         if indexPath.row == 0 {
-            let event = events[indexPath.row]
             return {
-                let postNode = PostCellNode(event: event)
+                let postNode = PostCellNode()
+                postNode.event?.creatorImageURL = self.events[1].creatorImageURL // ????????????????????????
+                postNode.reload() //////////// ?????????????????????????????????????????????
                 postNode.delegate = self
                 return postNode
             }
@@ -155,6 +187,14 @@ extension TimelineViewController: ASTableDataSource {
 //-----------------------------------------
 
 extension TimelineViewController: EventCellDelegate {
+    func didTapEventImage(sender: EventCellNode, imageView: UIImageView) {
+        let configuration = ImageViewerConfiguration { config in
+            config.imageView = imageView
+        }
+        present(ImageViewerController(configuration: configuration), animated: true)
+    }
+    
+    
     func didTapLikeButton(sender: ASButtonNode) {
         
     }
@@ -171,15 +211,8 @@ extension TimelineViewController: EventCellDelegate {
     }
     
     func didTapEventDescriptionNode(event: Event) {
-//        let eventExtendetVC = EventExtendetViewController(event: event)
-//        present(eventExtendetVC, animated: true, completion: nil)
-        
-//        let friendsVC = FriendsBaseViewController()
-//        present(friendsVC, animated: true, completion: nil)
-        
-        let inviteVC = InviteViewController()
-        present(inviteVC, animated: true, completion: nil)
-        
+        let eventExtendetVC = EventExtendetViewController(event: event)
+        navigationController?.pushViewController(eventExtendetVC, animated: true)
     }
 }
 
@@ -189,24 +222,69 @@ extension TimelineViewController: EventCellDelegate {
 //-----------------------------------------
 
 extension TimelineViewController: PostCellDelegate {
+    func didTapDateTimeButton(sender: PostCellNode) {
+        showDateTimePicker { date in
+            let formatter = DateFormatter()
+            formatter.dateFormat = "dd MMMM YYYY, hh:mm aa"
+            let timestamp = date.timeIntervalSince1970
+            sender.event?.startTime = String(timestamp)
+            sender.reload()
+        }
+    }
+    
     func didTapPhotoButton(sender: ASButtonNode) {
-        present(imagePicker, animated: true, completion: nil)
+        let alertController = UIAlertController(title: "Title", message: "Message", preferredStyle: .actionSheet)
+        let cameraAction = UIAlertAction(title: "Take a photo", style: .default) { (completed) in
+            self.imagePicker.sourceType = .camera
+            self.present(self.imagePicker, animated: true, completion: nil)
+        }
+        
+        let galleryAction = UIAlertAction(title: "Choose from gallery", style: .default) { (completed) in
+            self.imagePicker.sourceType = .photoLibrary
+            self.present(self.imagePicker, animated: true, completion: nil)
+        }
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (completed) in
+            
+        }
+        
+        alertController.addAction(cameraAction)
+        alertController.addAction(galleryAction)
+        alertController.addAction(cancelAction)
+        present(alertController, animated: true, completion: nil)
     }
     
     func didTapInviteButton(sender: ASButtonNode) {
         let inviteVC = InviteViewController()
-        let inviteNC = UINavigationController(rootViewController: inviteVC)
-        present(inviteNC, animated: true, completion: nil)
+        inviteVC.delegate = self
+        navigationController?.pushViewController(inviteVC, animated: true)
     }
     
-    func didTapPlaceButton(sender: ASButtonNode) {
+    func didTapPlaceButton(sender: PostCellNode) {
         let alertController = UIAlertController(title: "Title", message: "Message", preferredStyle: .actionSheet)
         let currentPlaceAction = UIAlertAction(title: "Current place", style: .default) { (completed) in
             
+            LocationPickerViewController.currentLocation()
+            LocationPickerViewController.completion = { location in
+                if let address = location?.address {
+                    sender.event?.place = address
+                    sender.reload()
+                }
+            }
         }
         
         let customPlaceAction = UIAlertAction(title: "Choose another place", style: .default) { (completed) in
             
+            let locationPickerVC = LocationPickerViewController()
+            locationPickerVC.mapType = .standard
+            locationPickerVC.searchHistoryLabel = ""
+            locationPickerVC.completion = { location in
+                if let address = location?.address {
+                    sender.event?.place = address
+                    sender.reload()
+                }
+            }
+            self.navigationController?.pushViewController(locationPickerVC, animated: true)
         }
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (completed) in
@@ -221,6 +299,20 @@ extension TimelineViewController: PostCellDelegate {
 }
 
 //-----------------------------------------
+// MARK: - Invite VC Delegate
+//-----------------------------------------
+
+extension TimelineViewController: InviteViewControllerDelegate {
+    func didSelectGuests(guests: [Friend]) {
+        let indexPath = IndexPath(row: 0, section: 0)
+        let postCell = tableNode?.nodeForRow(at: indexPath) as! PostCellNode
+        print(guests.count)
+        postCell.event?.attenders = guests.count
+        postCell.reload()
+    }
+}
+
+//-----------------------------------------
 // MARK: - Image Picker Delegate
 //-----------------------------------------
 
@@ -231,7 +323,6 @@ extension TimelineViewController: UIImagePickerControllerDelegate, UINavigationC
             let postCell = tableNode?.nodeForRow(at: indexPath) as! PostCellNode
             
             postCell.eventImageNode.image = image
-            
         }
         dismiss(animated: true, completion: nil)
     }

@@ -17,6 +17,7 @@ protocol EventCellDelegate: class {
     func didTapDislikeButton(sender: ASButtonNode)
     func didTapCommentButton(sender: ASButtonNode)
     func didTapEventDescriptionNode(event: Event)
+    func didTapEventImage(sender: EventCellNode, imageView: UIImageView)
 }
 
 class EventCellNode: ASCellNode {
@@ -41,7 +42,8 @@ class EventCellNode: ASCellNode {
     
     private let event: Event
     private let creatorImageNode: ASNetworkImageNode
-    private let eventImageNode: ASNetworkImageNode
+    public let eventImageNode: ASNetworkImageNode
+    private var eventImageViewNode: ASDisplayNode
     private let eventCategoryImageNode: ASImageNode
     private let creatorNameNode: ASTextNode
     private let eventDescriptionNode: ASTextNode
@@ -62,6 +64,7 @@ class EventCellNode: ASCellNode {
         
         creatorImageNode = ASNetworkImageNode()
         eventImageNode = ASNetworkImageNode()
+        eventImageViewNode = ASDisplayNode()
         eventCategoryImageNode = ASImageNode()
         creatorNameNode = ASTextNode()
         eventDescriptionNode = ASTextNode()
@@ -84,6 +87,7 @@ class EventCellNode: ASCellNode {
         dislikeButtonNode.addTarget(self, action: #selector(didTapDislikeButton(_:)), forControlEvents: .touchUpInside)
         commentButtonNode.addTarget(self, action: #selector(didTapCommentButton(_:)), forControlEvents: .touchUpInside)
         eventDescriptionNode.addTarget(self, action: #selector(didTapEventDescriptionNode(_:)), forControlEvents: .touchUpInside)
+        eventImageNode.addTarget(self, action: #selector(didTapEventImage(_:)), forControlEvents: .touchUpInside)
     }
     
     //-----------------------------
@@ -93,6 +97,7 @@ class EventCellNode: ASCellNode {
     private func setupNodes() {
         setupCreatorImageNode()
         setupEventImageNode()
+        setupEventImageViewNode()
         setupEventCategoryImageNode()
         setupCreatorNameNode()
         setupEventDescriptionNode()
@@ -121,6 +126,19 @@ class EventCellNode: ASCellNode {
         eventImageNode.needsDisplayOnBoundsChange = true
         eventImageNode.shouldRenderProgressImages = true
          */
+    }
+    
+    private func setupEventImageViewNode() {
+        eventImageViewNode = ASDisplayNode.init { () -> UIView in
+//            let imageView = UIImageView.init(image: self.eventImageNode.image)
+            let imageView = UIImageView()
+            imageView.contentMode = .scaleAspectFill
+            imageView.clipsToBounds = true
+            imageView.isHidden = true
+            return imageView
+        }
+        
+        
     }
     
     private func setupEventCategoryImageNode() {
@@ -174,6 +192,7 @@ class EventCellNode: ASCellNode {
     private func buildNodeHierarchy() {
         addSubnode(creatorImageNode)
         addSubnode(eventImageNode)
+        addSubnode(eventImageViewNode)
         addSubnode(eventCategoryImageNode)
         addSubnode(creatorNameNode)
         addSubnode(eventDescriptionNode)
@@ -282,6 +301,14 @@ class EventCellNode: ASCellNode {
     
     @objc func didTapEventDescriptionNode(_ sender: ASTextNode) {
         delegate?.didTapEventDescriptionNode(event: event)
+    }
+    
+    @objc func didTapEventImage(_ sender: ASImageNode) {
+        eventImageNode.alpha = 0.1
+        eventImageViewNode.frame = eventImageNode.frame
+        (eventImageViewNode.view as! UIImageView).image = self.eventImageNode.image
+        
+        delegate?.didTapEventImage(sender: self, imageView: eventImageViewNode.view as! UIImageView)
     }
     
     //-----------------------------

@@ -16,7 +16,8 @@ import AsyncDisplayKit
 protocol PostCellDelegate: class {
     func didTapPhotoButton(sender: ASButtonNode)
     func didTapInviteButton(sender: ASButtonNode)
-    func didTapPlaceButton(sender: ASButtonNode)
+    func didTapPlaceButton(sender: PostCellNode)
+    func didTapDateTimeButton(sender: PostCellNode)
 }
 
 class PostCellNode: ASCellNode {
@@ -38,11 +39,21 @@ class PostCellNode: ASCellNode {
                 .foregroundColor: UIColor.TwistPalette.DarkGray]
     }
     
+    private var placeAttributes: [NSAttributedStringKey: Any] {
+        return [.font: UIFont.boldSystemFont(ofSize: 15),
+                .foregroundColor: UIColor.black]
+    }
+    
+    private var inputAttriubtes: [String: Any] {
+        return [NSAttributedStringKey.font.rawValue: UIFont.systemFont(ofSize: 15),
+                NSAttributedStringKey.foregroundColor.rawValue: UIColor.black]
+    }
+    
     //-----------------------------
     // MARK: - Constants
     //-----------------------------
     
-    private let event: Event // ???????????????????????
+    public var event: Event?
     weak var delegate: PostCellDelegate?
     
     private let userImageNode: ASNetworkImageNode
@@ -50,31 +61,35 @@ class PostCellNode: ASCellNode {
     private let inputTextNode: ASEditableTextNode
     private let bottomDelimiterNode: ASDisplayNode
     private let placeButtonNode: ASButtonNode
+    private let dateTimeButtonNode: ASButtonNode
     private let categoryButtonNode: ASButtonNode
     private let inviteButtonNode: ASButtonNode
     private let photoButtonNode: ASButtonNode
     private let postButtonNode: ASButtonNode
     private let bottomSpacerNode: ASDisplayNode
     private let spacerNode: ASDisplayNode
+    private let placeTextNode: ASTextNode
     
     //-----------------------------
     // MARK: - Life cycle
     //-----------------------------
     
-    init(event: Event) {
-        self.event = event // ???????????????????
+    override init() {
+        event = Event()
         
         userImageNode = ASNetworkImageNode()
         eventImageNode = ImageNode()
         inputTextNode = ASEditableTextNode()
         bottomDelimiterNode = ASDisplayNode()
         placeButtonNode = ASButtonNode()
+        dateTimeButtonNode = ASButtonNode()
         categoryButtonNode = ASButtonNode()
         inviteButtonNode = ASButtonNode()
         photoButtonNode = ASButtonNode()
         postButtonNode = ASButtonNode()
         bottomSpacerNode = ASDisplayNode()
         spacerNode = ASDisplayNode()
+        placeTextNode = ASTextNode()
         
         super.init()
         selectionStyle = .none
@@ -86,6 +101,7 @@ class PostCellNode: ASCellNode {
         inputTextNode.delegate = self
         
         placeButtonNode.addTarget(self, action: #selector(didTapPlaceButton(_:)), forControlEvents: .touchUpInside)
+        dateTimeButtonNode.addTarget(self, action: #selector(didTapDateTimeButton(_:)), forControlEvents: .touchUpInside)
         photoButtonNode.addTarget(self, action: #selector(didTapPhotoButton(_:)), forControlEvents: .touchUpInside)
         inviteButtonNode.addTarget(self, action: #selector(didTapInviteButton(_:)), forControlEvents: .touchUpInside)
         categoryButtonNode.addTarget(self, action: #selector(didTapCategoryButton(_:)), forControlEvents: .touchUpInside)
@@ -102,25 +118,29 @@ class PostCellNode: ASCellNode {
         setupInputTextNode()
         setupBottomDelimiterNode()
         setupPlaceButtonNode()
+        setupDateTimeButtonNode()
         setupCategoryButtonNode()
         setupInviteButtonNode()
         setupPhotoButtonNode()
         setupPostButtonNode()
         setupBottomSpacerNode()
         setupSpacerNode()
+        setupPlaceTextNode()
     }
     
     private func setupUserImageNode() {
-        userImageNode.url = URL (string: event.creatorImageURL)
+        if let creatorImageURL = event?.creatorImageURL {
+            userImageNode.url = URL (string: creatorImageURL)
+        }
         userImageNode.style.preferredSize = userImageSize
         userImageNode.cornerRadius = 25.0
     }
     
     private func setupInputTextNode() {
         inputTextNode.attributedPlaceholderText = NSAttributedString(string: "What's new ?", attributes: placeholderAttributes)
+        inputTextNode.typingAttributes = inputAttriubtes
         inputTextNode.maximumLinesToDisplay = 10
-        inputTextNode.backgroundColor = UIColor.red
-        inputTextNode.scrollEnabled = false
+//        inputTextNode.backgroundColor = UIColor.red
     }
     
     private func setupBottomDelimiterNode() {
@@ -133,6 +153,11 @@ class PostCellNode: ASCellNode {
         placeButtonNode.style.preferredSize = buttonSize
     }
     
+    private func setupDateTimeButtonNode() {
+        dateTimeButtonNode.setImage(#imageLiteral(resourceName: "camera"), for: .normal)
+        dateTimeButtonNode.style.preferredSize = buttonSize
+    }
+    
     private func setupCategoryButtonNode() {
         categoryButtonNode.setImage(#imageLiteral(resourceName: "marker"), for: .normal)
         categoryButtonNode.style.preferredSize = buttonSize
@@ -140,7 +165,12 @@ class PostCellNode: ASCellNode {
     
     private func setupInviteButtonNode() {
         inviteButtonNode.setImage(#imageLiteral(resourceName: "invite"), for: .normal)
+        inviteButtonNode.contentSpacing = 4
         inviteButtonNode.style.preferredSize = buttonSize
+        
+        if event?.attenders != 0 {
+            inviteButtonNode.setTitle(String(event!.attenders), with: UIFont.boldSystemFont(ofSize: 13), with: UIColor.black, for: .normal)
+        }
     }
     
     private func setupPhotoButtonNode() {
@@ -165,17 +195,37 @@ class PostCellNode: ASCellNode {
         spacerNode.style.flexGrow = 1.0
     }
     
+    private func setupPlaceTextNode() {
+        placeTextNode.maximumNumberOfLines = 2
+        
+        if let place = event?.place, let dateTime = event?.startTime {
+            if place.isEmpty && dateTime.isEmpty {
+                placeTextNode.style.preferredSize = CGSize.zero
+            } else {
+                let newLine = place.isEmpty ? "" : "\n"
+                let dateTime = dateTime.timestampStringDate(_withFormat: "d MMMM, h:mm aa")
+                placeTextNode.attributedText = NSAttributedString(string: place + newLine + dateTime,
+                                                                  attributes: placeAttributes)
+                placeTextNode.style.preferredSize = placeTextNode.calculateSizeThatFits(CGSize(width: 300,
+                                                                                               height: CGFloat.greatestFiniteMagnitude))
+            }
+        }
+        
+    }
+    
     private func buildNodeHierarchy() {
         addSubnode(userImageNode)
         addSubnode(eventImageNode)
         addSubnode(inputTextNode)
         addSubnode(placeButtonNode)
+        addSubnode(dateTimeButtonNode)
         addSubnode(bottomDelimiterNode)
         addSubnode(categoryButtonNode)
         addSubnode(inviteButtonNode)
         addSubnode(photoButtonNode)
         addSubnode(postButtonNode)
         addSubnode(bottomSpacerNode)
+        addSubnode(placeTextNode)
     }
     
     //-----------------------------
@@ -188,20 +238,29 @@ class PostCellNode: ASCellNode {
         let userImageLayout = ASInsetLayoutSpec(insets: userImageInsets, child: userImageNode)
         
         // Input node
-        let inputTextNodeInsets = UIEdgeInsets(top: 10.0, left: 0.0, bottom: 5.0, right: 10.0)
+        let inputTextNodeInsets = UIEdgeInsets(top: 0 , left: 0.0, bottom: 5.0, right: 10.0)
         let inputTextNodeLayout = ASInsetLayoutSpec(insets: inputTextNodeInsets, child: inputTextNode)
-        inputTextNodeLayout.style.flexShrink = 1.0
-        inputTextNodeLayout.style.alignSelf = .center
+        
+        //Place node
+        let placeInsets = UIEdgeInsets(top: 12.0, left: 0.0, bottom: 5.0, right: 10.0)
+        let placeLayout = ASInsetLayoutSpec(insets: placeInsets, child: placeTextNode)
+        
+        let inputStack = ASStackLayoutSpec(direction: .vertical,
+                                           spacing: 0,
+                                           justifyContent: .start,
+                                           alignItems: .start,
+                                           children: [placeLayout, inputTextNodeLayout])
+        inputStack.style.flexShrink = 1.0
+        inputStack.style.alignSelf = .center
         
         // Header stack
         let headerStackLayout = ASStackLayoutSpec(direction: .horizontal,
                                                   spacing: 0,
                                                   justifyContent: .start,
                                                   alignItems: .start,
-                                                  children: [userImageLayout, inputTextNodeLayout])
+                                                  children: [userImageLayout, inputStack])
         
         // Image node
-//        let eventImageLayout = ASWrapperLayoutSpec(layoutElement: eventImageNode)
         let eventImageInsets = UIEdgeInsets(top: 0.0, left: 65.0, bottom: 8.0, right: 10.0)
         let eventImageLayout = ASInsetLayoutSpec(insets: eventImageInsets, child: eventImageNode)
 
@@ -212,13 +271,18 @@ class PostCellNode: ASCellNode {
                                                   spacing: 0.0,
                                                   justifyContent: .start,
                                                   alignItems: .start,
-                                                  children: [placeButtonNode, categoryButtonNode, inviteButtonNode, photoButtonNode, spacerNode, postButtonLayout])
+                                                  children: [placeButtonNode, dateTimeButtonNode, categoryButtonNode, inviteButtonNode, photoButtonNode, spacerNode, postButtonLayout])
         
         // Vertical stack
         let verticalStackLayout = ASStackLayoutSpec.vertical()
         verticalStackLayout.children = [headerStackLayout, eventImageLayout, bottomDelimiterNode, footerStackLayout, bottomSpacerNode]
         
         return verticalStackLayout
+    }
+    
+    func reload() {
+        setupNodes()
+        setNeedsLayout()
     }
     
     //-----------------------------
@@ -230,7 +294,11 @@ class PostCellNode: ASCellNode {
     }
     
     @objc func didTapPlaceButton(_ sender: ASButtonNode) {
-        delegate?.didTapPlaceButton(sender: sender)
+        delegate?.didTapPlaceButton(sender: self)
+    }
+    
+    @objc func didTapDateTimeButton(_ sender: ASButtonNode) {
+        delegate?.didTapDateTimeButton(sender: self)
     }
     
     @objc func didTapCategoryButton(_ sender: ASButtonNode) {
@@ -250,16 +318,6 @@ class PostCellNode: ASCellNode {
         eventImageNode.deleteButton.isHidden = true
         setNeedsLayout()
     }
-    
-    //-----------------------------
-    // MARK: - Text Attributes
-    //-----------------------------
-    
-//    private func placeholderAttriubtes() -> NSAttributedString {
-//        let placeholderAttributes = [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 15.0),
-//                                     .foregroundColor: UIColor.TwistPalette.FlatGray]
-//
-//    }
 }
 
 //------------------------------------
@@ -267,10 +325,26 @@ class PostCellNode: ASCellNode {
 //------------------------------------
 
 extension PostCellNode: ASEditableTextNodeDelegate {
+    func editableTextNode(_ editableTextNode: ASEditableTextNode, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if text == "\n" {
+            
+        }
+        return true
+    }
+    
     func editableTextNodeDidChangeSelection(_ editableTextNode: ASEditableTextNode, fromSelectedRange: NSRange, toSelectedRange: NSRange, dueToEditing: Bool) {
         setNeedsLayout()
     }
 }
+
+
+
+
+
+
+
+
+
 
 //------------------------------------
 // MARK: - Image Node
