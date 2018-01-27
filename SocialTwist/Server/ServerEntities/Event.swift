@@ -16,6 +16,8 @@ struct Event {
     var place: String
     var attenders: Int
     var startTime: String
+    var type: String
+    
     
     
 }
@@ -30,6 +32,7 @@ extension Event {
         place = ""
         attenders = 0
         startTime = ""
+        type = ""
     }
 }
 

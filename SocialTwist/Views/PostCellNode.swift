@@ -18,6 +18,7 @@ protocol PostCellDelegate: class {
     func didTapInviteButton(sender: ASButtonNode)
     func didTapPlaceButton(sender: PostCellNode)
     func didTapDateTimeButton(sender: PostCellNode)
+    func didTapCategoryButton(sender: PostCellNode)
 }
 
 class PostCellNode: ASCellNode {
@@ -159,7 +160,19 @@ class PostCellNode: ASCellNode {
     }
     
     private func setupCategoryButtonNode() {
-        categoryButtonNode.setImage(#imageLiteral(resourceName: "marker"), for: .normal)
+        
+        guard let eventType = event?.type else {
+           return categoryButtonNode.setImage(#imageLiteral(resourceName: "marker"), for: .normal)
+        }
+        
+        if eventType.isEmpty {
+            categoryButtonNode.setImage(#imageLiteral(resourceName: "marker"), for: .normal)
+        } else {
+            categoryButtonNode.setImage(UIImage(named: eventType), for: .normal)
+            categoryButtonNode.imageNode.style.preferredSize = CGSize(width: 18, height: 18)
+            categoryButtonNode.imageNode.setNeedsLayout()
+        }
+        
         categoryButtonNode.style.preferredSize = buttonSize
     }
     
@@ -302,7 +315,7 @@ class PostCellNode: ASCellNode {
     }
     
     @objc func didTapCategoryButton(_ sender: ASButtonNode) {
-        
+        delegate?.didTapCategoryButton(sender: self)
     }
     
     @objc func didTapInviteButton(_ sender: ASButtonNode) {

@@ -46,9 +46,9 @@ class FriendsBaseViewController: ASViewController<ASTableNode> {
     func setupSearchController() {
         searchController.searchResultsUpdater = self
         searchController.searchBar.placeholder = "Type to search"
-        navigationItem.title = "Friends"
-        navigationItem.searchController = searchController
-//        self.navigationItem.titleView = searchController.searchBar
+//        navigationItem.title = "Friends"
+//        navigationItem.searchController = searchController
+        self.navigationItem.titleView = searchController.searchBar
         self.searchController.hidesNavigationBarDuringPresentation = false
         self.searchController.dimsBackgroundDuringPresentation = false
         self.definesPresentationContext = true
