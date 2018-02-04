@@ -20,7 +20,7 @@ extension UIAlertController {
     ///   - customView: A `UIView` which will be displayed in place of the message string.
     ///   - fallbackMessage: An optional fallback message string, which will be displayed in case something went wrong with inserting the custom view.
     ///   - preferredStyle: The preferred style of the `UIAlertController`.
-    convenience init(title: String?, customView: UIView, fallbackMessage: String?, preferredStyle: UIAlertControllerStyle) {
+    convenience init(title: String?, view: UIView, fallbackMessage: String?, preferredStyle: UIAlertControllerStyle) {
         
         let marker = "__CUSTOM_CONTENT_MARKER__"
         self.init(title: title, message: marker, preferredStyle: preferredStyle)
@@ -30,21 +30,21 @@ extension UIAlertController {
             let customContainer =  customContentPlaceholder.superview {
             
             // The message label was found. Add the custom view over it and fix the autolayout...
-            customContainer.addSubview(customView)
+            customContainer.addSubview(view)
             
-            customView.translatesAutoresizingMaskIntoConstraints = false
-            customContainer.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[customView]|", options: [], metrics: nil, views: ["customView": customView]))
+            view.translatesAutoresizingMaskIntoConstraints = false
+            customContainer.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[customView]|", options: [], metrics: nil, views: ["customView": view]))
             customContainer.addConstraint(NSLayoutConstraint(item: customContentPlaceholder,
                                                              attribute: .top,
                                                              relatedBy: .equal,
-                                                             toItem: customView,
+                                                             toItem: view,
                                                              attribute: .top,
                                                              multiplier: 1,
                                                              constant: 0))
             customContainer.addConstraint(NSLayoutConstraint(item: customContentPlaceholder,
                                                              attribute: .height,
                                                              relatedBy: .equal,
-                                                             toItem: customView,
+                                                             toItem: view,
                                                              attribute: .height,
                                                              multiplier: 1,
                                                              constant: 0))

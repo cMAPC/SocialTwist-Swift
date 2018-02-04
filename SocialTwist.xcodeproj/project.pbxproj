@@ -23,6 +23,7 @@
 		1F45C5301FBD9E04004AD0DE /* SMGroupCheckboxController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F45C52C1FBD9E04004AD0DE /* SMGroupCheckboxController.swift */; };
 		1F45C5311FBD9E04004AD0DE /* SMCheckboxPathController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F45C52D1FBD9E04004AD0DE /* SMCheckboxPathController.swift */; };
 		1F528EA51FDEC68B00EC4FA3 /* EventExtendetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF310081FDB00580004068B /* EventExtendetViewController.swift */; };
+		1F545DB0201CC7E1007F224D /* EventTypePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F545DAF201CC7E1007F224D /* EventTypePicker.swift */; };
 		1F56D0CA1F9DE2DD00E9B1F6 /* AlertManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F56D0C91F9DE2DD00E9B1F6 /* AlertManager.swift */; };
 		1F56D0CD1F9E36E600E9B1F6 /* DateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F56D0CC1F9E36E600E9B1F6 /* DateManager.swift */; };
 		1F56D0CF1F9E3D4600E9B1F6 /* String+Regex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F56D0CE1F9E3D4600E9B1F6 /* String+Regex.swift */; };
@@ -45,8 +46,7 @@
 		1FABE26C1FF4F8A800979699 /* FriendCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FABE26B1FF4F8A800979699 /* FriendCell.swift */; };
 		1FABE2701FF4FD1F00979699 /* FriendContainerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FABE26F1FF4FD1F00979699 /* FriendContainerNode.swift */; };
 		1FC2D97A1FC2DFED00ACED38 /* UserDefaults+Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC2D9791FC2DFED00ACED38 /* UserDefaults+Keys.swift */; };
-		1FD3F7C2201A62FC0089C67E /* EventKeyboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD3F7C1201A62FC0089C67E /* EventKeyboardView.swift */; };
-		1FD3F7C4201A6A610089C67E /* KeyboardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD3F7C3201A6A610089C67E /* KeyboardCell.swift */; };
+		1FD3F7C4201A6A610089C67E /* EventTypeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD3F7C3201A6A610089C67E /* EventTypeCell.swift */; };
 		1FD5A09C201B16FB0008B2EC /* UIAlertController+View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD5A09B201B16FB0008B2EC /* UIAlertController+View.swift */; };
 		1FE19A852015413D00AB2424 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 1FE19A7C2015413D00AB2424 /* LICENSE */; };
 		1FE19A862015413D00AB2424 /* LocationSearchResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE19A7E2015413D00AB2424 /* LocationSearchResultsViewController.swift */; };
@@ -84,6 +84,7 @@
 		1F45C52B1FBD9E04004AD0DE /* SMCheckbox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMCheckbox.swift; sourceTree = "<group>"; };
 		1F45C52C1FBD9E04004AD0DE /* SMGroupCheckboxController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMGroupCheckboxController.swift; sourceTree = "<group>"; };
 		1F45C52D1FBD9E04004AD0DE /* SMCheckboxPathController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMCheckboxPathController.swift; sourceTree = "<group>"; };
+		1F545DAF201CC7E1007F224D /* EventTypePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventTypePicker.swift; sourceTree = "<group>"; };
 		1F56D0C91F9DE2DD00E9B1F6 /* AlertManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertManager.swift; sourceTree = "<group>"; };
 		1F56D0CC1F9E36E600E9B1F6 /* DateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateManager.swift; sourceTree = "<group>"; };
 		1F56D0CE1F9E3D4600E9B1F6 /* String+Regex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Regex.swift"; sourceTree = "<group>"; };
@@ -109,8 +110,7 @@
 		1FABE26B1FF4F8A800979699 /* FriendCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendCell.swift; sourceTree = "<group>"; };
 		1FABE26F1FF4FD1F00979699 /* FriendContainerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendContainerNode.swift; sourceTree = "<group>"; };
 		1FC2D9791FC2DFED00ACED38 /* UserDefaults+Keys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Keys.swift"; sourceTree = "<group>"; };
-		1FD3F7C1201A62FC0089C67E /* EventKeyboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventKeyboardView.swift; sourceTree = "<group>"; };
-		1FD3F7C3201A6A610089C67E /* KeyboardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardCell.swift; sourceTree = "<group>"; };
+		1FD3F7C3201A6A610089C67E /* EventTypeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventTypeCell.swift; sourceTree = "<group>"; };
 		1FD5A09B201B16FB0008B2EC /* UIAlertController+View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertController+View.swift"; sourceTree = "<group>"; };
 		1FE19A7C2015413D00AB2424 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		1FE19A7E2015413D00AB2424 /* LocationSearchResultsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationSearchResultsViewController.swift; sourceTree = "<group>"; };
@@ -208,8 +208,8 @@
 				1FABE26B1FF4F8A800979699 /* FriendCell.swift */,
 				1FABE26F1FF4FD1F00979699 /* FriendContainerNode.swift */,
 				1FF711881FFA847800E2BACE /* InviteHeader.swift */,
-				1FD3F7C1201A62FC0089C67E /* EventKeyboardView.swift */,
-				1FD3F7C3201A6A610089C67E /* KeyboardCell.swift */,
+				1FD3F7C3201A6A610089C67E /* EventTypeCell.swift */,
+				1F545DAF201CC7E1007F224D /* EventTypePicker.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -539,12 +539,11 @@
 				1F45C52F1FBD9E04004AD0DE /* SMCheckbox.swift in Sources */,
 				1FF711891FFA847800E2BACE /* InviteHeader.swift in Sources */,
 				1FEA544D1FE18F970049A1C7 /* InputAccessoryView.swift in Sources */,
-				1FD3F7C2201A62FC0089C67E /* EventKeyboardView.swift in Sources */,
 				1F56D0CF1F9E3D4600E9B1F6 /* String+Regex.swift in Sources */,
 				1F5B902C1FD6EB26004801CF /* PostCellNode.swift in Sources */,
 				1FF711851FF954EA00E2BACE /* InviteViewController.swift in Sources */,
 				1FE19A8A2015413D00AB2424 /* SearchHistoryManager.swift in Sources */,
-				1FD3F7C4201A6A610089C67E /* KeyboardCell.swift in Sources */,
+				1FD3F7C4201A6A610089C67E /* EventTypeCell.swift in Sources */,
 				1F5B90251FD6AF00004801CF /* Comment.swift in Sources */,
 				1F6F38041F96101B00380706 /* SignUpViewController.swift in Sources */,
 				1F2824DB1F9A032D003A94DE /* UITextField+Warning.swift in Sources */,
@@ -570,6 +569,7 @@
 				1FABE26C1FF4F8A800979699 /* FriendCell.swift in Sources */,
 				1F56D0CD1F9E36E600E9B1F6 /* DateManager.swift in Sources */,
 				1F3D06CD1FD969E600CC0BCF /* PresentAnimationController.swift in Sources */,
+				1F545DB0201CC7E1007F224D /* EventTypePicker.swift in Sources */,
 				1F5B902A1FD6EB26004801CF /* EventCellNode.swift in Sources */,
 				1F6F38111F96291100380706 /* Constants.swift in Sources */,
 				1FD5A09C201B16FB0008B2EC /* UIAlertController+View.swift in Sources */,

@@ -68,10 +68,10 @@ class TimelineViewController: UIViewController {
                 let event = Event(imageURL: imagerUr,
                                   creatorImageURL: imagerUrl,
                                   creatorName: "Marcel Spinu",
-                                  description: "Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description",
+                                  description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
                                   place: "Chisinau Chisinau Chisinau Chisinau",
                                   attenders: 20,
-                                  startTime: "",
+                                  startTime: "1534941142",
                                   type: "")
                 self.events.append(event)
             }
@@ -121,6 +121,7 @@ class TimelineViewController: UIViewController {
     //-----------------------------------------
     
     func showDateTimePicker(completion: ((Date)->Void)?) {
+        /*
         let min = Date() //Date().addingTimeInterval(-60 * 60 * 24 * 4)
         let max = Date().addingTimeInterval(60 * 60 * 24 * 60)
         let picker = DateTimePicker.show(selected: Date(), minimumDate: min, maximumDate: max)
@@ -140,6 +141,103 @@ class TimelineViewController: UIViewController {
         picker.completionHandler = { date in
             completion?(date)
         }
+         */
+        
+        let min = Date()
+        let max = Date().addingTimeInterval(60 * 60 * 24 * 60)
+        let picker = DateTimePicker.show(selected: Date(), minimumDate: min, maximumDate: max)
+        
+        // Picker style
+        picker.dateFormat = "d MMMM, h:mm aa"
+        picker.includeMonth = true
+        picker.highlightColor = UIColor.TwistPalette.FlatBlue
+        picker.doneBackgroundColor = UIColor.TwistPalette.FlatBlue
+        picker.doneButtonTitle = "Done"
+        
+        // Picker constraints
+        picker.translatesAutoresizingMaskIntoConstraints = false
+        picker.addConstraint(NSLayoutConstraint(item: picker,
+                                                attribute: .height,
+                                                relatedBy: .equal,
+                                                toItem: nil,
+                                                attribute: .notAnAttribute,
+                                                multiplier: 1,
+                                                constant: 235))
+        
+        // Alert controller
+        let alert = UIAlertController(title: "Choose event date",
+                                      view: picker,
+                                      fallbackMessage: "This should be a red rectangle",
+                                      preferredStyle: .actionSheet)
+        
+        // Alert style
+        alert.view.isOpaque = false
+        alert.view.backgroundColor = UIColor.white
+        alert.view.layer.cornerRadius = 15
+        
+        present(alert, animated: true) {
+            alert.view.superview?.subviews.first?.isUserInteractionEnabled = true
+            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.didTapAlertControllerBackground(_:)))
+            alert.view.superview?.subviews.first?.addGestureRecognizer(tapGesture)
+        }
+        
+        picker.completionHandler = { date in
+            completion?(date)
+            alert.dismiss(animated: true, completion: nil)
+        }
+    }
+    
+    //-----------------------------------------
+    // MARK: - Event type Picker
+    //-----------------------------------------
+    
+    func showEventCategoryPicker(completion: ((String)->Void)?) {
+        
+        let eventTypePicker = EventTypePicker.show()
+        
+        // Picker constraints
+        eventTypePicker.translatesAutoresizingMaskIntoConstraints = false
+        eventTypePicker.addConstraint(NSLayoutConstraint(item: eventTypePicker,
+                                                           attribute: .height,
+                                                           relatedBy: .equal,
+                                                           toItem: nil,
+                                                           attribute: .notAnAttribute,
+                                                           multiplier: 1,
+                                                           constant: 230))
+        // Alert controller
+        let alert = UIAlertController(title: "Choose event category",
+                                      view: eventTypePicker,
+                                      fallbackMessage: "This should be a red rectangle",
+                                      preferredStyle: .actionSheet)
+        
+        // Alert style
+        alert.view.isOpaque = false
+        alert.view.backgroundColor = UIColor.TwistPalette.DarkGray
+        alert.view.layer.cornerRadius = 15
+        
+        //        let subview = (alert.view.subviews.first?.subviews.first?.subviews.first!)! as UIView
+        //        subview.backgroundColor = UIColor.TwistPalette.FlatBlue
+        
+        //        alert.view.tintColor = UIColor.red
+        //        let attributedString = NSAttributedString(string: "Choose event category",
+        //                                                  attributes: [.foregroundColor : UIColor.white])
+        //        alert.setValue(attributedString, forKey: "attributedTitle")
+        
+        present(alert, animated: true) {
+            alert.view.superview?.subviews.first?.isUserInteractionEnabled = true
+            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.didTapAlertControllerBackground(_:)))
+            alert.view.superview?.subviews.first?.addGestureRecognizer(tapGesture)
+        }
+        
+        eventTypePicker.completionHandler = { value in
+            completion?(value)
+            alert.dismiss(animated: true, completion: nil)
+        }
+    }
+ 
+    // MARK: - Alert controller
+    @objc func didTapAlertControllerBackground(_: UITapGestureRecognizer){
+        self.dismiss(animated: true, completion: nil)
     }
 }
 
@@ -220,58 +318,21 @@ extension TimelineViewController: EventCellDelegate {
 //-----------------------------------------
 
 extension TimelineViewController: PostCellDelegate {
-    func didTapCategoryButton(sender: PostCellNode) {
-        let eventKeyboardView = EventKeyboardView.show()
-        
-        eventKeyboardView.translatesAutoresizingMaskIntoConstraints = false
-        eventKeyboardView.addConstraint(NSLayoutConstraint(item: eventKeyboardView,
-                                                attribute: .height,
-                                                relatedBy: .equal,
-                                                toItem: nil,
-                                                attribute: .notAnAttribute,
-                                                multiplier: 1,
-                                                constant: 230)) //235
-        
-        // Create the alert and show it
-        let alert = UIAlertController(title: "Choose event category",
-                                      customView: eventKeyboardView,
-                                      fallbackMessage: "This should be a red rectangle",
-                                      preferredStyle: .actionSheet)
-        
-        alert.view.isOpaque = false
-        alert.view.backgroundColor = UIColor.TwistPalette.DarkGray
-        alert.view.layer.cornerRadius = 15
-        
-//        let subview = (alert.view.subviews.first?.subviews.first?.subviews.first!)! as UIView
-//        subview.backgroundColor = UIColor.TwistPalette.FlatBlue
-        
-//        alert.view.tintColor = UIColor.red
-//        let attributedString = NSAttributedString(string: "Choose event category",
-//                                                  attributes: [.foregroundColor : UIColor.white])
-//        alert.setValue(attributedString, forKey: "attributedTitle")
-        
-        present(alert, animated: true) {
-            alert.view.superview?.subviews[1].isUserInteractionEnabled = true
-            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.alertControllerBackgroundTapped(_:)))
-            
-            alert.view.superview?.subviews[1].addGestureRecognizer(tapGesture)
+    func didTapEventImage(sender: PostCellNode, imageView: UIImageView) {
+        let configuration = ImageViewerConfiguration { config in
+            config.imageView = imageView
         }
-
-        
-        eventKeyboardView.completionHandler = { value in
-            sender.event?.type = value
-            sender.reload()
-            alert.dismiss(animated: true, completion: nil)
-        }
-        
+        present(ImageViewerController(configuration: configuration), animated: true)
     }
     
-    @objc func alertControllerBackgroundTapped(_: UITapGestureRecognizer){
-        self.dismiss(animated: true, completion: nil)
+    func didTapCategoryButton(sender: PostCellNode) {
+        showEventCategoryPicker { value in
+            sender.event?.type = value
+            sender.reload()
+        }
     }
     
     func didTapDateTimeButton(sender: PostCellNode) {
-        /*
         showDateTimePicker { date in
             let formatter = DateFormatter()
             formatter.dateFormat = "dd MMMM YYYY, hh:mm aa"
@@ -279,51 +340,6 @@ extension TimelineViewController: PostCellDelegate {
             sender.event?.startTime = String(timestamp)
             sender.reload()
         }
-        */
-        
-        let min = Date() //Date().addingTimeInterval(-60 * 60 * 24 * 4)
-        let max = Date().addingTimeInterval(60 * 60 * 24 * 60)
-        let picker = DateTimePicker.show(selected: Date(), minimumDate: min, maximumDate: max)
-        picker.dateFormat = "d MMMM, h:mm aa"
-        picker.includeMonth = true
-        picker.highlightColor = UIColor.TwistPalette.FlatBlue
-//        picker.darkColor = UIColor.darkGray
-        picker.doneButtonTitle = "Done"
-        picker.doneBackgroundColor = UIColor.TwistPalette.DarkGray
-        
-        picker.translatesAutoresizingMaskIntoConstraints = false
-        picker.addConstraint(NSLayoutConstraint(item: picker,
-                                                attribute: .height,
-                                                relatedBy: .equal,
-                                                toItem: nil,
-                                                attribute: .notAnAttribute,
-                                                multiplier: 1,
-                                                constant: 235)) //235
-        
-        // Create the alert and show it
-        let alert = UIAlertController(title: "Choose event date",
-                                      customView: picker,
-                                      fallbackMessage: "This should be a red rectangle",
-                                      preferredStyle: .actionSheet)
-        alert.view.isOpaque = false
-        alert.view.backgroundColor = UIColor.white
-        alert.view.layer.cornerRadius = 15
-        
-        picker.completionHandler = { date in
-            //            completion?(date)
-            //            alert.title = String(describing: date)
-            
-            let formatter = DateFormatter()
-            formatter.dateFormat = "dd MMMM YYYY, hh:mm aa"
-            let timestamp = date.timeIntervalSince1970
-            sender.event?.startTime = String(timestamp)
-            sender.reload()
-            
-            alert.dismiss(animated: true, completion: nil)
-            print(date)
-        }
-        
-        self.present(alert, animated: true, completion: nil)
     }
     
     func didTapPhotoButton(sender: ASButtonNode) {

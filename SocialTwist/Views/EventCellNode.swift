@@ -33,6 +33,10 @@ class EventCellNode: ASCellNode {
     private lazy var buttonSize: CGSize = {
         return CGSize(width: ASDimensionAuto.value, height: 42.0)
     }()
+    
+    private var eventDescriptionAttributes: [NSAttributedStringKey: Any] {
+        return [.font: UIFont.systemFont(ofSize: 13)]
+    }
 
     //-----------------------------
     // MARK: - Constants
@@ -130,15 +134,12 @@ class EventCellNode: ASCellNode {
     
     private func setupEventImageViewNode() {
         eventImageViewNode = ASDisplayNode.init { () -> UIView in
-//            let imageView = UIImageView.init(image: self.eventImageNode.image)
             let imageView = UIImageView()
             imageView.contentMode = .scaleAspectFill
             imageView.clipsToBounds = true
             imageView.isHidden = true
             return imageView
         }
-        
-        
     }
     
     private func setupEventCategoryImageNode() {
@@ -148,11 +149,11 @@ class EventCellNode: ASCellNode {
     
     private func setupCreatorNameNode() {
         creatorNameNode.attributedText = creatorNameTextAttriubtes()
-        creatorNameNode.maximumNumberOfLines = 2
+        creatorNameNode.maximumNumberOfLines = 3
     }
     
     private func setupEventDescriptionNode() {
-        eventDescriptionNode.attributedText = NSAttributedString(string: event.description, attributes: nil)
+        eventDescriptionNode.attributedText = NSAttributedString(string: event.description, attributes: eventDescriptionAttributes)
         eventDescriptionNode.maximumNumberOfLines = 5
     }
     
@@ -316,7 +317,8 @@ class EventCellNode: ASCellNode {
     //-----------------------------
     
     private func creatorNameTextAttriubtes() -> NSAttributedString {
-        let mutableAttributedString = NSMutableAttributedString(string: "\(event.creatorName) at    \(event.place)")
+        let dateTime = event.startTime.timestampStringDate(_withFormat: "d MMMM, h:mm aa")
+        let mutableAttributedString = NSMutableAttributedString(string: "\(event.creatorName) at    \(event.place)\n\(dateTime)")
         
         // Text attachment
         let textAttachment = NSTextAttachment()
@@ -327,16 +329,20 @@ class EventCellNode: ASCellNode {
         // Editing
         mutableAttributedString.beginEditing()
         mutableAttributedString.addAttribute(.font,
-                                             value: UIFont.boldSystemFont(ofSize: 13.0),
+                                             value: UIFont.boldSystemFont(ofSize: 14.0),
                                              range: NSMakeRange(0, event.creatorName.count))
         
-        mutableAttributedString.addAttributes([.font: UIFont.systemFont(ofSize: 13.4),
+        mutableAttributedString.addAttributes([.font: UIFont.systemFont(ofSize: 14),
                                                .foregroundColor: UIColor.TwistPalette.DarkGray],
                                               range: NSMakeRange(event.creatorName.count + 1, 2))
         
-        mutableAttributedString.addAttributes([.font: UIFont.boldSystemFont(ofSize: 13.0),
+        mutableAttributedString.addAttributes([.font: UIFont.boldSystemFont(ofSize: 14),
                                                .foregroundColor: UIColor.TwistPalette.FlatBlue],
                                               range: NSMakeRange(event.creatorName.count + 7, event.place.count))
+        
+        mutableAttributedString.addAttributes([.font: UIFont.systemFont(ofSize: 13),
+                                               .foregroundColor: UIColor.TwistPalette.DarkGray],
+                                              range: NSMakeRange(event.creatorName.count + 8 + event.place.count, dateTime.count))
         mutableAttributedString.endEditing()
 
         return mutableAttributedString

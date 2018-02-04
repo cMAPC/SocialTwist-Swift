@@ -1,11 +1,12 @@
 //
 //  SizeManager.swift
-//  ZipMobile
+//  SmartPromo
 //
-//  Created by Midnight.Works iMac 2013 on 10/11/17.
-//  Copyright © 2017 Vadim. All rights reserved.
+//  Created by Marcel  on 1/26/18.
+//  Copyright © 2018 Marcel . All rights reserved.
 //
 
+import Foundation
 import UIKit
 
 class SizeManager: NSObject {
@@ -14,20 +15,23 @@ class SizeManager: NSObject {
         
         var referenceHeight : Float = 0.0
         
-            switch reference {
-                
-            case .iPhone35:
-                referenceHeight = 480
-                
-            case .iPhone40:
-                referenceHeight = 568
-                
-            case .iPhone47:
-                referenceHeight = 667
-  
-            case .iPhone55:
-                referenceHeight = 736
-            }
+        switch reference {
+            
+        case .iPhone35:
+            referenceHeight = 480
+            
+        case .iPhone40:
+            referenceHeight = 568
+            
+        case .iPhone47:
+            referenceHeight = 667
+            
+        case .iPhone55:
+            referenceHeight = 736
+            
+        case .iPhone58:
+            referenceHeight = 812
+        }
         
         let percentage = height * 100 / referenceHeight
         let newHeight = Float (UIScreen.main.bounds.height) * percentage / 100
@@ -40,7 +44,7 @@ class SizeManager: NSObject {
         var referenceWidth: Float = 0.0
         
         switch reference {
-        
+            
         case .iPhone35:
             referenceWidth = 320
             
@@ -52,7 +56,11 @@ class SizeManager: NSObject {
             
         case .iPhone55:
             referenceWidth = 414
+            
+        case .iPhone58:
+            referenceWidth = 375
         }
+        
         
         let percentage = width * 100 / referenceWidth
         let newWidth = Float (UIScreen.main.bounds.width) * percentage / 100
@@ -72,9 +80,10 @@ extension UIDevice {
         case iPhone40
         case iPhone47
         case iPhone55
+        case iPhone58
     }
     
-    var deviceType: DeviceType {
+    static class var deviceType: DeviceType {
         
         switch UIScreen.main.bounds.height {
             
@@ -90,11 +99,11 @@ extension UIDevice {
         case 736:
             return .iPhone55
             
+        case 812:
+            return .iPhone58
+            
         default:
             return .iPhone47
         }
     }
 }
-
-
-

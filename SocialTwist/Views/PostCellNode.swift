@@ -19,6 +19,7 @@ protocol PostCellDelegate: class {
     func didTapPlaceButton(sender: PostCellNode)
     func didTapDateTimeButton(sender: PostCellNode)
     func didTapCategoryButton(sender: PostCellNode)
+    func didTapEventImage(sender: PostCellNode, imageView: UIImageView)
 }
 
 class PostCellNode: ASCellNode {
@@ -40,13 +41,8 @@ class PostCellNode: ASCellNode {
                 .foregroundColor: UIColor.TwistPalette.DarkGray]
     }
     
-    private var placeAttributes: [NSAttributedStringKey: Any] {
-        return [.font: UIFont.boldSystemFont(ofSize: 15),
-                .foregroundColor: UIColor.black]
-    }
-    
     private var inputAttriubtes: [String: Any] {
-        return [NSAttributedStringKey.font.rawValue: UIFont.systemFont(ofSize: 15),
+        return [NSAttributedStringKey.font.rawValue: UIFont.systemFont(ofSize: 13.5),
                 NSAttributedStringKey.foregroundColor.rawValue: UIColor.black]
     }
     
@@ -108,6 +104,7 @@ class PostCellNode: ASCellNode {
         categoryButtonNode.addTarget(self, action: #selector(didTapCategoryButton(_:)), forControlEvents: .touchUpInside)
         postButtonNode.addTarget(self, action: #selector(didTapPostButton(_:)), forControlEvents: .touchUpInside)
         eventImageNode.deleteButton.addTarget(self, action: #selector(didTapDeleteButton(_:)), forControlEvents: .touchUpInside)
+        eventImageNode.imageNode.addTarget(self, action: #selector(didTapEventImage(_:)), forControlEvents: .touchUpInside)
     }
     
     //-----------------------------
@@ -209,20 +206,31 @@ class PostCellNode: ASCellNode {
     }
     
     private func setupPlaceTextNode() {
-        placeTextNode.maximumNumberOfLines = 2
+        placeTextNode.maximumNumberOfLines = 3
+        placeTextNode.truncationMode = .byWordWrapping
         
         if let place = event?.place, let dateTime = event?.startTime {
             if place.isEmpty && dateTime.isEmpty {
                 placeTextNode.style.preferredSize = CGSize.zero
             } else {
-                let newLine = place.isEmpty ? "" : "\n"
-                let dateTime = dateTime.timestampStringDate(_withFormat: "d MMMM, h:mm aa")
-                placeTextNode.attributedText = NSAttributedString(string: place + newLine + dateTime,
-                                                                  attributes: placeAttributes)
-                placeTextNode.style.preferredSize = placeTextNode.calculateSizeThatFits(CGSize(width: 300,
+                placeTextNode.attributedText = placeAttriubtes()
+                placeTextNode.style.preferredSize = placeTextNode.calculateSizeThatFits(CGSize(width: UIScreen.main.bounds.width - 80,
                                                                                                height: CGFloat.greatestFiniteMagnitude))
             }
         }
+        
+//        if let place = event?.place, let dateTime = event?.startTime {
+//            if place.isEmpty && dateTime.isEmpty {
+//                placeTextNode.style.preferredSize = CGSize.zero
+//            } else {
+//                let newLine = !place.isEmpty && !dateTime.isEmpty ? "\n" : ""
+//                let dateTime = dateTime.timestampStringDate(_withFormat: "d MMMM, h:mm aa")
+//                placeTextNode.attributedText = NSAttributedString(string: place + newLine + dateTime,
+//                                                                  attributes: placeAttributes)
+//                placeTextNode.style.preferredSize = placeTextNode.calculateSizeThatFits(CGSize(width: 300,
+//                                                                                               height: CGFloat.greatestFiniteMagnitude))
+//            }
+//        }
         
     }
     
@@ -326,10 +334,56 @@ class PostCellNode: ASCellNode {
         
     }
     
+    @objc func didTapEventImage(_ sender: ASButtonNode) {
+        eventImageNode.imageNode.alpha = 0.1
+        delegate?.didTapEventImage(sender: self, imageView:  eventImageNode.imageViewNode.view as! UIImageView)
+    }
+    
     @objc func didTapDeleteButton(_ sender: ASButtonNode) {
         eventImageNode.image = nil
         eventImageNode.deleteButton.isHidden = true
         setNeedsLayout()
+    }
+    
+    //-----------------------------
+    // MARK: - Text Attributes
+    //-----------------------------
+    
+    private func placeAttriubtes() -> NSAttributedString {
+        var mutableAttributedString: NSMutableAttributedString?
+        
+        if let place = event?.place, let dateTime = event?.startTime {
+            let newLine = !place.isEmpty && !dateTime.isEmpty ? "\n" : ""
+            let dateTime = dateTime.timestampStringDate(_withFormat: "d MMMM, h:mm aa")
+            let at = place.isEmpty ? "" : "at    "
+            let dateTimeCount = newLine == "\n" ? dateTime.count + 1 : dateTime.count
+            
+            mutableAttributedString = NSMutableAttributedString(string: "\(at)\(place)\(newLine)\(dateTime)")
+            
+            // Text attachment
+            if !place.isEmpty {
+                let textAttachment = NSTextAttachment()
+                textAttachment.image = UIImage(cgImage: #imageLiteral(resourceName: "marker higtlighted").cgImage!, scale: 1.8, orientation: .up)
+                let attributedString = NSAttributedString(attachment: textAttachment)
+                mutableAttributedString?.replaceCharacters(in: NSMakeRange(4, 1), with: attributedString)
+            }
+            
+            // Editing
+            mutableAttributedString!.beginEditing()
+            mutableAttributedString?.addAttributes([.font: UIFont.systemFont(ofSize: 14),
+                                                    .foregroundColor: UIColor.TwistPalette.DarkGray],
+                                                   range: NSMakeRange(0, at.count))
+            
+            mutableAttributedString?.addAttributes([.font: UIFont.boldSystemFont(ofSize: 14),
+                                                    .foregroundColor: UIColor.TwistPalette.FlatBlue],
+                                                   range: NSMakeRange(at.count, place.count))
+            
+            mutableAttributedString?.addAttributes([.font: UIFont.systemFont(ofSize: 14),
+                                                    .foregroundColor: UIColor.TwistPalette.DarkGray],
+                                                   range: NSMakeRange(place.count + at.count, dateTimeCount))
+            mutableAttributedString!.endEditing()
+        }
+        return mutableAttributedString ?? NSMutableAttributedString()
     }
 }
 
@@ -364,7 +418,8 @@ extension PostCellNode: ASEditableTextNodeDelegate {
 //------------------------------------
 
 class ImageNode: ASDisplayNode {
-    private let imageNode: ASImageNode
+    let imageNode: ASImageNode
+    var imageViewNode: ASDisplayNode
     let deleteButton: ASButtonNode
     
     var image: UIImage? {
@@ -380,11 +435,10 @@ class ImageNode: ASDisplayNode {
     
     override init() {
         imageNode = ASImageNode()
+        imageViewNode = ASDisplayNode()
         deleteButton = ASButtonNode()
         
         super.init()
-        addSubnode(imageNode)
-        addSubnode(deleteButton)
     }
     
     //-----------------------------
@@ -393,10 +447,15 @@ class ImageNode: ASDisplayNode {
     
     private func setupNodes() {
         if image != nil {
+            removeNodeHierarchy()
+            setupImageViewNode()
             setupImageNode()
             setupDeleteButtonNode()
+            buildNodeHierarchy()
         } else {
+            removeNodeHierarchy()
             imageNode.style.preferredSize = CGSize.zero
+            imageViewNode.style.preferredSize = CGSize.zero
             deleteButton.style.preferredSize = CGSize.zero
         }
     }
@@ -404,7 +463,24 @@ class ImageNode: ASDisplayNode {
     private func setupImageNode() {
         imageNode.style.preferredSize = CGSize(width: 50.0, height: 50.0)
         imageNode.cornerRadius = 3.0
+        imageNode.alpha = 1.0
         imageNode.image = self.image
+    }
+    
+    private func setupImageViewNode() {
+        imageViewNode = ASDisplayNode.init { () -> UIView in
+            let imageView = UIImageView()
+            imageView.contentMode = .scaleAspectFill
+            imageView.clipsToBounds = true
+            imageView.isHidden = true
+            imageView.image = self.image
+            return imageView
+        }
+        
+//        addSubnode(imageViewNode)
+        imageViewNode.style.preferredSize = CGSize(width: 50.0, height: 50.0)
+        imageViewNode.cornerRadius = 3.0
+        imageViewNode.alpha = 1.0
     }
     
     private func setupDeleteButtonNode() {
@@ -415,6 +491,18 @@ class ImageNode: ASDisplayNode {
         deleteButton.isHidden = false
     }
     
+    func buildNodeHierarchy() {
+        addSubnode(imageViewNode)
+        addSubnode(imageNode)
+        addSubnode(deleteButton)
+    }
+    
+    func removeNodeHierarchy() {
+        imageViewNode.removeFromSupernode()
+        imageNode.removeFromSupernode()
+        deleteButton.removeFromSupernode()
+    }
+    
     //-----------------------------
     // MARK: - Layout
     //-----------------------------
@@ -422,8 +510,9 @@ class ImageNode: ASDisplayNode {
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         deleteButton.style.layoutPosition = CGPoint(x: 50.0, y: 0.0)
         imageNode.style.layoutPosition = CGPoint(x: 10.0, y: 10.0)
+        imageViewNode.style.layoutPosition = CGPoint(x: 10.0, y: 10.0)
         
-        return ASAbsoluteLayoutSpec(sizing: .sizeToFit, children: [imageNode, deleteButton])
+        return ASAbsoluteLayoutSpec(sizing: .sizeToFit, children: [imageViewNode, imageNode, deleteButton])
     }
 
 }

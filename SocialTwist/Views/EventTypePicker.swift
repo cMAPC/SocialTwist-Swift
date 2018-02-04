@@ -1,8 +1,8 @@
 //
-//  EventKeyboardView.swift
+//  EventTypePicker.swift
 //  SocialTwist
 //
-//  Created by Marcel  on 1/25/18.
+//  Created by Marcel  on 1/27/18.
 //  Copyright © 2018 Marcel . All rights reserved.
 //
 
@@ -15,7 +15,7 @@ class EventTypePicker: UIView {
     
     // MARK: - Constants
     
-    let reuseIndentifier = "keyboardCell"
+    let reuseIndentifier = "eventTypeCell"
     let images = [#imageLiteral(resourceName: "Eating"), #imageLiteral(resourceName: "Sport"), #imageLiteral(resourceName: "Coffee"), #imageLiteral(resourceName: "Drink"), #imageLiteral(resourceName: "Thinking"), #imageLiteral(resourceName: "Traveling"), #imageLiteral(resourceName: "Watching"), #imageLiteral(resourceName: "Celebrating"), #imageLiteral(resourceName: "Celebrating1"), #imageLiteral(resourceName: "Meeting"), #imageLiteral(resourceName: "Listen"), #imageLiteral(resourceName: "Shopping"), #imageLiteral(resourceName: "Reading"), #imageLiteral(resourceName: "Supporting"), #imageLiteral(resourceName: "Attending"), #imageLiteral(resourceName: "Making"), #imageLiteral(resourceName: "Sad"), #imageLiteral(resourceName: "Happy"), #imageLiteral(resourceName: "Loved"), #imageLiteral(resourceName: "Amused"), #imageLiteral(resourceName: "Wonderful"), #imageLiteral(resourceName: "Energized"), #imageLiteral(resourceName: "Alone"), #imageLiteral(resourceName: "Hungry")]
     let imageNames = ["Eating", "Sport", "Coffe", "Drink", "Thinking", "Traveling", "Watching", "Celebrating",
                       "Celebrating1", "Meeting", "Listen", "Shopping", "Reading", "Supporting", "Attending", "Making",
@@ -25,14 +25,14 @@ class EventTypePicker: UIView {
                  "Sad", "Happy", "Loved", "Amused", "Wonderful", "Energized", "Alone", "Hungry"];
     
     /*
-    let images = [#imageLiteral(resourceName: "Eating"), #imageLiteral(resourceName: "Sport"), #imageLiteral(resourceName: "Coffee"), #imageLiteral(resourceName: "Drink"), #imageLiteral(resourceName: "Thinking"), #imageLiteral(resourceName: "Traveling"), #imageLiteral(resourceName: "Watching"), #imageLiteral(resourceName: "Celebrating"), #imageLiteral(resourceName: "Celebrating1"), #imageLiteral(resourceName: "Meeting"), #imageLiteral(resourceName: "Listen"), #imageLiteral(resourceName: "Shopping"), #imageLiteral(resourceName: "Reading"), #imageLiteral(resourceName: "Supporting"), #imageLiteral(resourceName: "Attending"), #imageLiteral(resourceName: "Making"), #imageLiteral(resourceName: "Sad"), #imageLiteral(resourceName: "Happy"), #imageLiteral(resourceName: "Loved"), #imageLiteral(resourceName: "Amused"), #imageLiteral(resourceName: "Wonderful"), #imageLiteral(resourceName: "Energized"), #imageLiteral(resourceName: "Alone"), #imageLiteral(resourceName: "Hungry"),  #imageLiteral(resourceName: "Sport"), #imageLiteral(resourceName: "Coffee"), #imageLiteral(resourceName: "Drink"), #imageLiteral(resourceName: "Thinking"), #imageLiteral(resourceName: "Traveling"), #imageLiteral(resourceName: "Watching"), #imageLiteral(resourceName: "Celebrating"), #imageLiteral(resourceName: "Celebrating1"), #imageLiteral(resourceName: "Meeting"), #imageLiteral(resourceName: "Listen"), #imageLiteral(resourceName: "Shopping"), #imageLiteral(resourceName: "Reading"), #imageLiteral(resourceName: "Supporting"), #imageLiteral(resourceName: "Attending"), #imageLiteral(resourceName: "Making"), #imageLiteral(resourceName: "Sad"), #imageLiteral(resourceName: "Happy"), #imageLiteral(resourceName: "Loved"), #imageLiteral(resourceName: "Amused"), #imageLiteral(resourceName: "Wonderful"), #imageLiteral(resourceName: "Energized"), #imageLiteral(resourceName: "Alone"), #imageLiteral(resourceName: "Hungry")]
-    
-    let title = ["Eating", "Sport", "Coffe", "Drink", "Thinking", "Traveling", "Watching", "Celebrating",
-                 "Celebrating", "Meeting", "Listen", "Shopping", "Reading", "Supporting", "Attending", "Making",
-                 "Sad", "Happy", "Loved", "Amused", "Wonderful", "Energized", "Alone", "Hungry", "Sport", "Coffe", "Drink", "Thinking", "Traveling", "Watching", "Celebrating",
-                 "Celebrating", "Meeting", "Listen", "Shopping", "Reading", "Supporting", "Attending", "Making",
-                 "Sad", "Happy", "Loved", "Amused", "Wonderful", "Energized", "Alone", "Hungry"];
-    */
+     let images = [#imageLiteral(resourceName: "Eating"), #imageLiteral(resourceName: "Sport"), #imageLiteral(resourceName: "Coffee"), #imageLiteral(resourceName: "Drink"), #imageLiteral(resourceName: "Thinking"), #imageLiteral(resourceName: "Traveling"), #imageLiteral(resourceName: "Watching"), #imageLiteral(resourceName: "Celebrating"), #imageLiteral(resourceName: "Celebrating1"), #imageLiteral(resourceName: "Meeting"), #imageLiteral(resourceName: "Listen"), #imageLiteral(resourceName: "Shopping"), #imageLiteral(resourceName: "Reading"), #imageLiteral(resourceName: "Supporting"), #imageLiteral(resourceName: "Attending"), #imageLiteral(resourceName: "Making"), #imageLiteral(resourceName: "Sad"), #imageLiteral(resourceName: "Happy"), #imageLiteral(resourceName: "Loved"), #imageLiteral(resourceName: "Amused"), #imageLiteral(resourceName: "Wonderful"), #imageLiteral(resourceName: "Energized"), #imageLiteral(resourceName: "Alone"), #imageLiteral(resourceName: "Hungry"),  #imageLiteral(resourceName: "Sport"), #imageLiteral(resourceName: "Coffee"), #imageLiteral(resourceName: "Drink"), #imageLiteral(resourceName: "Thinking"), #imageLiteral(resourceName: "Traveling"), #imageLiteral(resourceName: "Watching"), #imageLiteral(resourceName: "Celebrating"), #imageLiteral(resourceName: "Celebrating1"), #imageLiteral(resourceName: "Meeting"), #imageLiteral(resourceName: "Listen"), #imageLiteral(resourceName: "Shopping"), #imageLiteral(resourceName: "Reading"), #imageLiteral(resourceName: "Supporting"), #imageLiteral(resourceName: "Attending"), #imageLiteral(resourceName: "Making"), #imageLiteral(resourceName: "Sad"), #imageLiteral(resourceName: "Happy"), #imageLiteral(resourceName: "Loved"), #imageLiteral(resourceName: "Amused"), #imageLiteral(resourceName: "Wonderful"), #imageLiteral(resourceName: "Energized"), #imageLiteral(resourceName: "Alone"), #imageLiteral(resourceName: "Hungry")]
+     
+     let title = ["Eating", "Sport", "Coffe", "Drink", "Thinking", "Traveling", "Watching", "Celebrating",
+     "Celebrating", "Meeting", "Listen", "Shopping", "Reading", "Supporting", "Attending", "Making",
+     "Sad", "Happy", "Loved", "Amused", "Wonderful", "Energized", "Alone", "Hungry", "Sport", "Coffe", "Drink", "Thinking", "Traveling", "Watching", "Celebrating",
+     "Celebrating", "Meeting", "Listen", "Shopping", "Reading", "Supporting", "Attending", "Making",
+     "Sad", "Happy", "Loved", "Amused", "Wonderful", "Energized", "Alone", "Hungry"];
+     */
     
     // MARK: - Setup
     
@@ -45,7 +45,7 @@ class EventTypePicker: UIView {
         layout.scrollDirection = .horizontal
         
         collectionView = UICollectionView(frame: frame, collectionViewLayout: layout)
-        collectionView.register(KeyboardCell.self, forCellWithReuseIdentifier: reuseIndentifier)
+        collectionView.register(EventTypeCell.self, forCellWithReuseIdentifier: reuseIndentifier)
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.backgroundColor = UIColor.clear
@@ -74,7 +74,7 @@ extension EventTypePicker: UICollectionViewDelegate, UICollectionViewDataSource,
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIndentifier, for: indexPath) as! KeyboardCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIndentifier, for: indexPath) as! EventTypeCell
         
         cell.itemImageView.image = images[indexPath.row]
         cell.itemTitle.text = title[indexPath.row]
@@ -91,5 +91,6 @@ extension EventTypePicker: UICollectionViewDelegate, UICollectionViewDataSource,
         return CGSize(width: 60, height: 50)
     }
 }
+
 
 

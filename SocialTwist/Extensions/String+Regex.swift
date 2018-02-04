@@ -35,16 +35,9 @@ extension String {
     func timestampStringDate(_withFormat format: String) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = format
-//        let timestamp = Double(self)
-    
-//        let date: Date?
-//        if let timestamp = Double(self) {
-//            date = Date(timeIntervalSince1970: timestamp)
-//            return dateFormatter.string(from: date)
-//        }
-//
+        
         guard let timestamp = Double(self) else {
-            return "timestampStringDate error"
+            return ""
         }
         
         let date = Date(timeIntervalSince1970: timestamp)

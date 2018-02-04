@@ -8,7 +8,7 @@
 
 import UIKit
 
-class KeyboardCell: UICollectionViewCell {
+class EventTypeCell: UICollectionViewCell {
     
     // MARK: -
     

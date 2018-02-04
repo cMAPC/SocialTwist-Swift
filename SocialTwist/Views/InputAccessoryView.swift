@@ -29,6 +29,14 @@ class InputAccessoryView: UIView {
     var allText = ""
     
     
+//    override func didMoveToWindow() {
+//        super.didMoveToWindow()
+//        if #available(iOS 11.0, *) {
+//            if let window = self.window {
+//                self.bottomAnchor.constraintLessThanOrEqualToSystemSpacingBelow(window.safeAreaLayoutGuide.bottomAnchor, multiplier: 1.0).isActive = true
+//            }
+//        }
+//    }
     
     override var intrinsicContentSize: CGSize {
         // Calculate intrinsicContentSize that will fit all the text
@@ -41,18 +49,20 @@ class InputAccessoryView: UIView {
             setCursorPositionToEnd()
         }
         
-        if isEdinting == true {
-            scrollToBottom()
-        }
-        
         let textSize = textView.sizeThatFits(CGSize(width: textView.bounds.width, height: CGFloat.greatestFiniteMagnitude))
 
         if textSize.height > 96 && isEdinting == true {
             self.textView.isScrollEnabled = true
-            return CGSize(width: bounds.width, height: 100)
+            let height: CGFloat = UIScreen.main.bounds.height == 812 ? 105 : 105
+            self.scrollToBottom()
+            return CGSize(width: bounds.width, height: height)
         } else if isEdinting == false {
             self.textView.text = firstLine
-            return CGSize(width: bounds.width, height: 40)
+            let height: CGFloat = UIScreen.main.bounds.height == 812 ? 76 : 42
+            return CGSize(width: bounds.width, height: height)
+        } else if textSize.height < 96 {
+            self.textView.isScrollEnabled = false
+            return CGSize(width: bounds.width, height: textSize.height)
         } else {
             return CGSize(width: bounds.width, height: textSize.height)
         }
@@ -85,7 +95,7 @@ class InputAccessoryView: UIView {
     // MARK: - Setup
     
     private func setupTextView() {
-        textView.textContainerInset = UIEdgeInsetsMake(8, 8, 8, 8)
+        textView.textContainerInset = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8) //UIEdgeInsetsMake(8, 8, 8, 8)
         textView.backgroundColor = UIColor.TwistPalette.LowGray
         textView.layer.borderColor = UIColor.TwistPalette.MiddleGray.cgColor
         textView.layer.borderWidth = 0.5
@@ -109,11 +119,22 @@ class InputAccessoryView: UIView {
         emojiButton.translatesAutoresizingMaskIntoConstraints = false
         
         addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-8-[v0][v2(>=40)][v1(>=40)]|", options: [], metrics: nil, views: views))
-        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-5-[v0]-5-|", options: [], metrics: nil, views: views))
-        
+//        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-5-[v0]-5-|", options: [], metrics: nil, views: views))
+////
+////
+//        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[v1(42)]", options: [], metrics: nil, views: views))
+//        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[v2(42)]", options: [], metrics: nil, views: views))
 
-        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[v1(42)]|", options: [], metrics: nil, views: views))
-        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[v2(42)]|", options: [], metrics: nil, views: views))
+        
+        
+        textView.topAnchor.constraint(equalTo: self.topAnchor, constant: 5).isActive = true
+        textView.bottomAnchor.constraint(equalTo: self.layoutMarginsGuide.bottomAnchor, constant: -5).isActive = true
+
+//        postButton.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
+        postButton.bottomAnchor.constraint(equalTo: self.layoutMarginsGuide.bottomAnchor, constant: -8).isActive = true
+
+//                emojiButton.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
+        emojiButton.bottomAnchor.constraint(equalTo: self.layoutMarginsGuide.bottomAnchor, constant: -8).isActive = true
     }
     
     private func setupPostButton() {
@@ -129,7 +150,11 @@ class InputAccessoryView: UIView {
     private func scrollToBottom() {
         let bottomOffset = textView.contentSize.height - self.textView.bounds.size.height
         let contentOffset = CGPoint(x: 0, y: bottomOffset)
-        textView.setContentOffset(contentOffset, animated: true)
+//        textView.setContentOffset(contentOffset, animated: false)
+        
+        UIView.animate(withDuration: 0.2, animations: {() -> Void in
+            self.textView.setContentOffset(contentOffset, animated: false)
+        })
     }
     
     private func setCursorPositionToEnd() {
@@ -178,7 +203,7 @@ extension InputAccessoryView: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
         // Re-calculate intrinsicContentSize when text changes
         isEdinting = true
-        invalidateIntrinsicContentSize()
+        self.invalidateIntrinsicContentSize()
     }
     
     func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
@@ -186,7 +211,17 @@ extension InputAccessoryView: UITextViewDelegate {
         firstLine = truncateString(toWidth: textView.frame.width - 23, withFont: textView.font!, text: textView.text)
         
         isEdinting = false
-        invalidateIntrinsicContentSize()
+//        invalidateIntrinsicContentSize()
+        
+        if textView.isScrollEnabled == false {
+            UIView.animate(withDuration: 0.2, animations: {() -> Void in
+                self.invalidateIntrinsicContentSize()
+                self.superview?.setNeedsLayout()
+                self.superview?.layoutIfNeeded()
+            })
+        } else {
+            invalidateIntrinsicContentSize()
+        }
         
         return true
     }
