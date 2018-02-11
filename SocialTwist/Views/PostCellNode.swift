@@ -180,6 +180,8 @@ class PostCellNode: ASCellNode {
         
         if event?.attenders != 0 {
             inviteButtonNode.setTitle(String(event!.attenders), with: UIFont.boldSystemFont(ofSize: 13), with: UIColor.black, for: .normal)
+        } else {
+            inviteButtonNode.setTitle("", with: nil, with: nil, for: .normal)
         }
     }
     

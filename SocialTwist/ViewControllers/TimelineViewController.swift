@@ -21,6 +21,7 @@ class TimelineViewController: UIViewController {
     
     
     var imagesUrls = [String]()
+    var guests = [Friend]()
     
 //    let interactor = InteractorController()
     
@@ -367,6 +368,10 @@ extension TimelineViewController: PostCellDelegate {
     func didTapInviteButton(sender: ASButtonNode) {
         let inviteVC = InviteViewController()
         inviteVC.delegate = self
+        inviteVC.inviteHeader.guests = self.guests
+//        inviteVC.inviteHeader.collectionView.reloadData()
+//        inviteVC.inviteHeaderHeight = 100
+//        inviteVC.reload()
         navigationController?.pushViewController(inviteVC, animated: true)
     }
     
@@ -417,6 +422,7 @@ extension TimelineViewController: InviteViewControllerDelegate {
         let indexPath = IndexPath(row: 0, section: 0)
         let postCell = tableNode?.nodeForRow(at: indexPath) as! PostCellNode
         print(guests.count)
+        self.guests = guests
         postCell.event?.attenders = guests.count
         postCell.reload()
     }

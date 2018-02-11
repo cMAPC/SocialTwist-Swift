@@ -73,9 +73,9 @@ class SizeManager: NSObject {
 
 //MARK: - UIDevice Extension
 
-extension UIDevice {
+public extension UIDevice {
     
-    enum DeviceType {
+    public enum DeviceType {
         case iPhone35
         case iPhone40
         case iPhone47
@@ -83,7 +83,7 @@ extension UIDevice {
         case iPhone58
     }
     
-    static class var deviceType: DeviceType {
+    public var deviceType: DeviceType {
         
         switch UIScreen.main.bounds.height {
             

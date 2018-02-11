@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1F0697F3202DF5EB00C9EEDD /* UIScreen+Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0697F2202DF5EB00C9EEDD /* UIScreen+Size.swift */; };
 		1F0BB63E1FBDBD7000FFB6BA /* UIColor+TwistPalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0BB63D1FBDBD7000FFB6BA /* UIColor+TwistPalette.swift */; };
 		1F1B5B582014020800B34ECC /* UIBarButtonItem+CustomStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1B5B572014020800B34ECC /* UIBarButtonItem+CustomStyle.swift */; };
 		1F2824DB1F9A032D003A94DE /* UITextField+Warning.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2824DA1F9A032D003A94DE /* UITextField+Warning.swift */; };
@@ -69,6 +70,7 @@
 
 /* Begin PBXFileReference section */
 		1295112271017C6A8636613A /* Pods-SocialTwist.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SocialTwist.release.xcconfig"; path = "Pods/Target Support Files/Pods-SocialTwist/Pods-SocialTwist.release.xcconfig"; sourceTree = "<group>"; };
+		1F0697F2202DF5EB00C9EEDD /* UIScreen+Size.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScreen+Size.swift"; sourceTree = "<group>"; };
 		1F0BB63D1FBDBD7000FFB6BA /* UIColor+TwistPalette.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+TwistPalette.swift"; sourceTree = "<group>"; };
 		1F1B5B572014020800B34ECC /* UIBarButtonItem+CustomStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIBarButtonItem+CustomStyle.swift"; sourceTree = "<group>"; };
 		1F2824DA1F9A032D003A94DE /* UITextField+Warning.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Warning.swift"; sourceTree = "<group>"; };
@@ -155,6 +157,7 @@
 				1FC2D9791FC2DFED00ACED38 /* UserDefaults+Keys.swift */,
 				1F1B5B572014020800B34ECC /* UIBarButtonItem+CustomStyle.swift */,
 				1FD5A09B201B16FB0008B2EC /* UIAlertController+View.swift */,
+				1F0697F2202DF5EB00C9EEDD /* UIScreen+Size.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -524,6 +527,7 @@
 			files = (
 				1FE19A862015413D00AB2424 /* LocationSearchResultsViewController.swift in Sources */,
 				1FA2A0D51FDB12B50019FDFF /* CommentsHeaderNode.swift in Sources */,
+				1F0697F3202DF5EB00C9EEDD /* UIScreen+Size.swift in Sources */,
 				1FABE2681FF4ECEA00979699 /* FriendsBaseViewController.swift in Sources */,
 				1F1B5B582014020800B34ECC /* UIBarButtonItem+CustomStyle.swift in Sources */,
 				1FC2D97A1FC2DFED00ACED38 /* UserDefaults+Keys.swift in Sources */,

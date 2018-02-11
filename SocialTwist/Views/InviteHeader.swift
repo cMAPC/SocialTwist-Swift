@@ -12,22 +12,63 @@ import AlignedCollectionViewFlowLayout
 // MARK: - Protocols
 protocol InviteHeaderDelegate: class {
     func didTapDeleteButton()
+    func didTapInviteButton()
+    func didTapExpandCollpaseButton()
 }
 
 
 class InviteHeader: UIView {
+    
+    var views: [String : Any] {
+        return ["v0": collectionView!,
+                "v1": inviteButton!,
+                "v2": expandCollapseButton!,
+                "v3": spacerView!]
+    }
     
     // MARK: - Properties
     
     weak var delegate: InviteHeaderDelegate?
     
     var collectionView: UICollectionView!
+    var inviteButton: UIButton!
+    var expandCollapseButton: UIButton!
+    var spacerView: UIView!
+    
     var guests = [Friend]()
-    var maxHeight: CGFloat = 108
+    var isCollapsed = true
+
+    var spacerViewHeightConstraint: NSLayoutConstraint!
+    
+    let spacerViewHeight: CGFloat = 30
+    let topBarHeight: CGFloat = UIScreen.size == .iPhone58 ? 100 : 74
+    var buttonHeight: CGFloat = 30
+    
+    var maxHeight: CGFloat = 138
     var height: CGFloat {
-        if intrinsicContentSize.height < maxHeight{
-            return intrinsicContentSize.height == 0 ? 10 : intrinsicContentSize.height
+        if isCollapsed == true {
+            return collapsedHeight
         } else {
+            return expandHeight
+        }
+    }
+    
+    var expandHeight: CGFloat {
+        if intrinsicContentSize.height + buttonHeight + spacerViewHeight  < UIScreen.main.bounds.size.height - topBarHeight {
+            return intrinsicContentSize.height + buttonHeight
+        } else {
+            if UIScreen.size == .iPhone58 { spacerViewHeightConstraint.constant = spacerViewHeight }
+            return UIScreen.main.bounds.size.height - topBarHeight
+        }
+    }
+    
+    var collapsedHeight: CGFloat {
+        if intrinsicContentSize.height < maxHeight {
+            spacerViewHeightConstraint.constant = 0
+            let newButtonHeight: CGFloat = guests.count == 0 ? -6 : buttonHeight
+            return intrinsicContentSize.height == 0 ? 10 : intrinsicContentSize.height + newButtonHeight
+        } else {
+            spacerViewHeightConstraint.constant = 0
             return maxHeight
         }
     }
@@ -46,7 +87,11 @@ class InviteHeader: UIView {
         backgroundColor = UIColor.clear
         
         setupCollectionView()
+        setupInviteButton()
+        setupExpandCollapseButton()
+        setupSpacerView()
         setupConstraints()
+        hideContent()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -65,11 +110,51 @@ class InviteHeader: UIView {
         addSubview(collectionView)
     }
     
+    private func setupInviteButton() {
+        inviteButton = UIButton()
+        let attributes = [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 14)]
+        let attributedString = NSAttributedString(string: "Invite", attributes: attributes)
+        inviteButton.setAttributedTitle(attributedString, for: .normal)
+        inviteButton.backgroundColor = UIColor.TwistPalette.FlatBlue
+        inviteButton.addTarget(self, action: #selector(didTapInviteButton(_:)), for: .touchUpInside)
+        addSubview(inviteButton)
+    }
+    
+    private func setupExpandCollapseButton() {
+        expandCollapseButton = UIButton()
+        expandCollapseButton.setImage(#imageLiteral(resourceName: "camera"), for: .normal)
+        expandCollapseButton.addTarget(self, action: #selector(didTapExpandCollpaseButton(_:)), for: .touchUpInside)
+        expandCollapseButton.backgroundColor = UIColor.TwistPalette.FlatBlue
+        addSubview(expandCollapseButton)
+    }
+    
+    private func setupSpacerView() {
+        spacerView = UIView()
+        spacerView.backgroundColor = UIColor.TwistPalette.FlatBlue
+        addSubview(spacerView)
+    }
+    
     private func setupConstraints() {
-        let views = ["v0": collectionView!]
         collectionView.translatesAutoresizingMaskIntoConstraints = false
+        inviteButton.translatesAutoresizingMaskIntoConstraints = false
+        expandCollapseButton.translatesAutoresizingMaskIntoConstraints = false
+        spacerView.translatesAutoresizingMaskIntoConstraints = false
+
         addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-[v0]-|", options: [], metrics: nil, views: views))
-        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[v0]|", options: [], metrics: nil, views: views))
+        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[v0][v1(30)][v3]|", options: [], metrics: nil, views: views))
+        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[v0][v2][v3]|", options: [], metrics: nil, views: views))
+
+        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[v1(>=250,<=260)][v2]|", options: [], metrics: nil, views: views))
+        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[v3]|", options: [], metrics: nil, views: views))
+        
+        spacerViewHeightConstraint = NSLayoutConstraint(item: spacerView,
+                                                        attribute: .height,
+                                                        relatedBy: .equal,
+                                                        toItem: nil,
+                                                        attribute: .notAnAttribute,
+                                                        multiplier: 1,
+                                                        constant: 0)
+        NSLayoutConstraint.activate([spacerViewHeightConstraint])
     }
     
     // MARK: - Layout
@@ -89,16 +174,50 @@ class InviteHeader: UIView {
         }
         
         // Scroll to bottom
-        if intrinsicContentSize.height > maxHeight {
-            scrollToBottom()
+        if isCollapsed == true {
+            if intrinsicContentSize.height > maxHeight {
+                scrollToBottom()
+            }
         }
-        
-        collectionView.backgroundColor = UIColor.TwistPalette.FlatGray
     }
     
     func scrollToBottom() {
         let lastItemIndex = IndexPath(item: guests.count - 1, section: 0)
         collectionView.scrollToItem(at: lastItemIndex, at: .centeredVertically, animated: true);
+    }
+    
+    // MARK: - Action's
+    @objc func didTapInviteButton(_ sender: UIButton) {
+        delegate?.didTapInviteButton()
+    }
+    
+    @objc func didTapExpandCollpaseButton(_ sender: UIButton) {
+        updateCollapseExpandState()
+        delegate?.didTapExpandCollpaseButton()
+    }
+    
+    
+    private func updateCollapseExpandState() {
+        if isCollapsed == true {
+            isCollapsed = false
+        } else {
+            isCollapsed = true
+        }
+    }
+    
+    // MARK: - Show/Hide content
+    func showContent() {
+        if guests.count != 0 {
+            collectionView.backgroundColor = UIColor.TwistPalette.FlatGray
+            inviteButton.alpha = 1
+            expandCollapseButton.alpha = 1
+        }
+    }
+    
+    func hideContent() {
+        collectionView.backgroundColor = UIColor.clear
+        inviteButton.alpha = 0
+        expandCollapseButton.alpha = 0
     }
 }
 
@@ -118,9 +237,15 @@ extension InviteHeader: GuestCellDelegate {
         
         // Set clear color if collection view is empty
         if collectionView.numberOfItems(inSection: 0) == 0 {
-            collectionView.backgroundColor = UIColor.clear
+            hideContent()
         }
         
+        // update spacer view height in case content is smaller then full screen
+        if UIScreen.size == .iPhone58 {
+            if expandHeight < UIScreen.main.bounds.height - 110 {
+                spacerViewHeightConstraint.constant = 0
+            }
+        }
         delegate?.didTapDeleteButton()
     }
 }
