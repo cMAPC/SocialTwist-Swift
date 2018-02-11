@@ -41,7 +41,7 @@ class InviteHeader: UIView {
     var spacerViewHeightConstraint: NSLayoutConstraint!
     
     let spacerViewHeight: CGFloat = 30
-    let topBarHeight: CGFloat = UIScreen.size == .iPhone58 ? 100 : 74
+    let topBarHeight: CGFloat = UIScreen.size == .iPhone58 ? 100 : 76
     var buttonHeight: CGFloat = 30
     
     var maxHeight: CGFloat = 138
@@ -112,7 +112,8 @@ class InviteHeader: UIView {
     
     private func setupInviteButton() {
         inviteButton = UIButton()
-        let attributes = [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 14)]
+        let attributes = [NSAttributedStringKey.font            : UIFont.boldSystemFont(ofSize: 14.5),
+                          NSAttributedStringKey.foregroundColor : UIColor.white]
         let attributedString = NSAttributedString(string: "Invite", attributes: attributes)
         inviteButton.setAttributedTitle(attributedString, for: .normal)
         inviteButton.backgroundColor = UIColor.TwistPalette.FlatBlue
@@ -122,7 +123,7 @@ class InviteHeader: UIView {
     
     private func setupExpandCollapseButton() {
         expandCollapseButton = UIButton()
-        expandCollapseButton.setImage(#imageLiteral(resourceName: "camera"), for: .normal)
+        expandCollapseButton.setImage(#imageLiteral(resourceName: "expand"), for: .normal)
         expandCollapseButton.addTarget(self, action: #selector(didTapExpandCollpaseButton(_:)), for: .touchUpInside)
         expandCollapseButton.backgroundColor = UIColor.TwistPalette.FlatBlue
         addSubview(expandCollapseButton)
@@ -141,7 +142,7 @@ class InviteHeader: UIView {
         spacerView.translatesAutoresizingMaskIntoConstraints = false
 
         addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-[v0]-|", options: [], metrics: nil, views: views))
-        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[v0][v1(30)][v3]|", options: [], metrics: nil, views: views))
+        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[v0][v1][v3]|", options: [], metrics: nil, views: views))
         addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[v0][v2][v3]|", options: [], metrics: nil, views: views))
 
         addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[v1(>=250,<=260)][v2]|", options: [], metrics: nil, views: views))
@@ -200,8 +201,10 @@ class InviteHeader: UIView {
     private func updateCollapseExpandState() {
         if isCollapsed == true {
             isCollapsed = false
+            expandCollapseButton.setImage(#imageLiteral(resourceName: "collapse"), for: .normal)
         } else {
             isCollapsed = true
+            expandCollapseButton.setImage(#imageLiteral(resourceName: "expand"), for: .normal)
         }
     }
     

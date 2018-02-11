@@ -147,12 +147,12 @@ class PostCellNode: ASCellNode {
     }
     
     private func setupPlaceButtonNode() {
-        placeButtonNode.setImage(#imageLiteral(resourceName: "marker"), for: .normal)
+        placeButtonNode.setImage(#imageLiteral(resourceName: "map"), for: .normal)
         placeButtonNode.style.preferredSize = buttonSize
     }
     
     private func setupDateTimeButtonNode() {
-        dateTimeButtonNode.setImage(#imageLiteral(resourceName: "camera"), for: .normal)
+        dateTimeButtonNode.setImage(#imageLiteral(resourceName: "date time"), for: .normal)
         dateTimeButtonNode.style.preferredSize = buttonSize
     }
     
